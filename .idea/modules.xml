@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GPXTracker.iml" filepath="$PROJECT_DIR$/GPXTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trk/trk.iml" filepath="$PROJECT_DIR$/trk/trk.iml" />
+    </modules>
+  </component>
+</project>
+

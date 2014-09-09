@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/t_gps_status"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gps_status" />
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/duration"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/t_duration"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zduration"
+                android:textSize="40sp" />
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/distance"
+                android:textSize="32sp"/>
+
+            <TextView
+                android:id="@+id/t_distance"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zdistance"
+                android:textSize="40sp" />
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/speed"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/t_speed"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zspeed"
+                android:textSize="40sp" />
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:text="@string/avspeed"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/t_avspeed"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/zavspeed"
+                android:textSize="40sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/b_start"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="begin"
+            android:text="@string/b_start"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/b_stop"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="end"
+            android:text="@string/b_stop"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
