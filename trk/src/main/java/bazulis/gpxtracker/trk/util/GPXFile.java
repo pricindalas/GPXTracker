@@ -24,7 +24,7 @@ import bazulis.gpxtracker.trk.GPXDetails;
  * GPX failo objektas su pagrindinem funkcijom.
  */
 public class GPXFile {
-    private static String path = Environment.getExternalStorageDirectory().getPath() + "/gpx/";
+    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/gpx/";
     public List<Float> lats = new ArrayList<Float>();
     public List<Float> lons = new ArrayList<Float>();
     public List<Float> eles = new ArrayList<Float>();
@@ -47,7 +47,8 @@ public class GPXFile {
         }
     }
     public GPXFile() {
-        this.filename = dformatter.format(new Date())+".gpx";
+        SimpleDateFormat fformatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        this.filename = fformatter.format(new Date())+".gpx";
         newGPX(filename);
     }
 
@@ -119,7 +120,7 @@ public class GPXFile {
 
     private void newGPX(String filename) {
         try {
-            File file = new File(path+filename);
+            File file = new File(path + filename);
             outputStream = new FileOutputStream(file);
             String startTag = "<?xml version='1.0' standalone='yes' ?>\n<gpx>\n  <trk>\n    <trkseg>\n";
             outputStream.write(startTag.getBytes());

@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'BAZE'
             keyPassword 'rokasp'
-            storeFile file('/home/bazulis/Android/keyStore/bazulis-R.jks')
+            storeFile file('C:/Users/Rokas/Documents/keyStore/bazulis-R.jks')
             storePassword 'rokasp'
         }
     }
