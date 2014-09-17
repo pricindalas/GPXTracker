@@ -11,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -121,11 +120,7 @@ public class GPXFile {
     private void newGPX(String filename) {
         try {
             File file = new File(path+filename);
-            file.createNewFile();
             outputStream = new FileOutputStream(file);
-            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-            writer.write("Testing");
-            writer.close();
             String startTag = "<?xml version='1.0' standalone='yes' ?>\n<gpx>\n  <trk>\n    <trkseg>\n";
             outputStream.write(startTag.getBytes());
         } catch (IOException e) {

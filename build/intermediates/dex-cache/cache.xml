@@ -2,28 +2,28 @@
 <pre-dex-items>
 
     <item
-        dex="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/pre-dexed/release/support-annotations-20.0.0-d4b7ed7a49514513fa98af7277779d05deace442.jar"
-        jar="/home/bazulis/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        dex="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\pre-dexed\release\support-annotations-20.0.0-6af5f7b50b29879a4ac25b7eda5085c0dd0403a6.jar"
+        jar="E:\AndroidStudio\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
     <item
-        dex="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/pre-dexed/release/classes-b476d9cf11c68d324df775ef268f0dd1791ac4d0.jar"
-        jar="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        dex="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\pre-dexed\release\internal_impl-20.0.0-22caa2e0caaaac7507bff976e5a6817ad3713e67.jar"
+        jar="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\pre-dexed\release\classes-86e1059c281a2e2212f56395703961ed0079cfaf.jar"
+        jar="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
     <item
-        dex="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/pre-dexed/release/classes-d10005e53d1e299ea4b700a95e7e2b6a8c87ff21.jar"
-        jar="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        dex="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\pre-dexed\release\classes-a6a9149e03fc94b0d54132dc4794cc3e926a9cc4.jar"
+        jar="C:\Users\Rokas\Documents\GitHub\GPXTracker\trk\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
-    <item
-        dex="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/pre-dexed/release/internal_impl-20.0.0-5ff344a0e01c6adeb931c50db7c5468fd67ad4d6.jar"
-        jar="/home/bazulis/AndroidStudioProjects/GPXTracker/trk/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
 
 </pre-dex-items>
