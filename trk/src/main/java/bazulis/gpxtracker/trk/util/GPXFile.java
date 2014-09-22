@@ -36,6 +36,7 @@ public class GPXFile {
 
     private FileOutputStream outputStream;
     private final SimpleDateFormat dformatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS");
+    private final SimpleDateFormat fformatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
     public GPXFile(String filename, boolean resumeFile) {
         this.filename = filename;
@@ -46,15 +47,16 @@ public class GPXFile {
             readGPX();
         }
     }
+
     public GPXFile() {
-        SimpleDateFormat fformatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        this.filename = fformatter.format(new Date())+".gpx";
+
+        this.filename = fformatter.format(new Date()) + ".gpx";
         newGPX(filename);
     }
 
     private void checkFolder() {
         File gpxFolder = new File(path);
-        if(!gpxFolder.mkdir() && !gpxFolder.exists()) {
+        if (!gpxFolder.mkdir() && !gpxFolder.exists()) {
             System.out.println("Can't create a gpx folder!");
         }
     }
@@ -112,7 +114,7 @@ public class GPXFile {
         avspeed = counter.getAvspeed();
         try {
             startTime = dformatter.parse(times.get(0)).getTime();
-            lastTime = dformatter.parse(times.get(times.size()-1)).getTime();
+            lastTime = dformatter.parse(times.get(times.size() - 1)).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -131,14 +133,14 @@ public class GPXFile {
 
     private void resumeGPX() {
         readGPX();
-        newGPX(dformatter.format(new Date())+"-R.gpx");
+        newGPX(fformatter.format(new Date()) + "-R.gpx");
         for (int i = 0; i < lats.size(); i++) {
             addSegment(lats.get(i), lons.get(i), eles.get(i), times.get(i));
         }
     }
 
     public void addSegment(double lat, double lon, double elevation, long time) {
-        String trackTag = "      <trkpt lat=\""+lat+"\" lon=\""+lon+"\">\n        <ele>"+elevation+"</ele>\n        <time>"+dformatter.format(new Date(time))+"</time>\n      </trkpt>\n";
+        String trackTag = "      <trkpt lat=\"" + lat + "\" lon=\"" + lon + "\">\n        <ele>" + elevation + "</ele>\n        <time>" + dformatter.format(new Date(time)) + "</time>\n      </trkpt>\n";
         try {
             outputStream.write(trackTag.getBytes());
         } catch (IOException e) {
@@ -147,7 +149,7 @@ public class GPXFile {
     }
 
     public void addSegment(double lat, double lon, double elevation, String time) {
-        String trackTag = "      <trkpt lat=\""+lat+"\" lon=\""+lon+"\">\n        <ele>"+elevation+"</ele>\n        <time>"+time+"</time>\n      </trkpt>\n";
+        String trackTag = "      <trkpt lat=\"" + lat + "\" lon=\"" + lon + "\">\n        <ele>" + elevation + "</ele>\n        <time>" + time + "</time>\n      </trkpt>\n";
         try {
             outputStream.write(trackTag.getBytes());
         } catch (IOException e) {
