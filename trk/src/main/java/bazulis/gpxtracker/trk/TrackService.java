@@ -1,5 +1,6 @@
 package bazulis.gpxtracker.trk;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -11,7 +12,6 @@ import android.content.SharedPreferences;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
@@ -23,7 +23,7 @@ import bazulis.gpxtracker.trk.util.GPXFile;
 public class TrackService extends Service {
 
     public static final int serviceID = 19891020;
-    private NotificationCompat.Builder nbuilder;
+    private Notification.Builder nbuilder;
     private BroadcastReceiver receiver;
 
     ///Trackerio duomenys, skirti interfeisui
@@ -71,7 +71,7 @@ public class TrackService extends Service {
         nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         updateNotif = isNotifBarEnabled();
-        nbuilder = new NotificationCompat.Builder(this);
+        nbuilder = new Notification.Builder(this);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -117,7 +117,7 @@ public class TrackService extends Service {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        nbuilder = new NotificationCompat.Builder(this)
+        nbuilder = new Notification.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setTicker(getString(R.string.toast_trackstarted))
                 .setContentTitle(getString(R.string.service_running))

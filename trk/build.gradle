@@ -5,14 +5,14 @@ android {
         config {
             keyAlias 'BAZE'
             keyPassword 'rokasp'
-            storeFile file('C:/Users/Rokas/Documents/keyStore/bazulis-R.jks')
+            storeFile file('/home/bazulis/Android/keyStore/Bazulis-R.jks')
             storePassword 'rokasp'
         }
     }
     compileSdkVersion 20
     buildToolsVersion '20.0.0'
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 16
         targetSdkVersion 20
         versionCode 31
         versionName '1.6.2'
@@ -29,6 +29,4 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:20.0.0'
 }
