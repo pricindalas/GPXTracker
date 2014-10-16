@@ -73,6 +73,11 @@ public class TrackService extends Service {
         updateNotif = isNotifBarEnabled();
         nbuilder = new Notification.Builder(this);
 
+        distance = 0;
+        speed = 0;
+        avspeed = 0;
+        duration = "00:00:00";
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
         filter.addAction(BRActions.ACTION_PUSHCOMMANDS);
