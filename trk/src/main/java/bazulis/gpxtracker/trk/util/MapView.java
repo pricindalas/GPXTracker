@@ -18,7 +18,7 @@ import bazulis.gpxtracker.trk.R;
  * Zemelapio elementas
  */
 public class MapView extends View {
-    private static final int MAX_LINES = 500;
+    private static final int MAX_LINES = 450;
     private float maxlat;
     private float minlon;
     private float dAngle;
@@ -42,7 +42,8 @@ public class MapView extends View {
 
         mapLine = new Paint();
         mapLine.setColor(Color.rgb(255, 0, 0));
-        mapLine.setStrokeWidth(3);
+        mapLine.setStrokeWidth(2);
+        mapLine.setAntiAlias(true);
     }
     @Override
     public void onDraw(Canvas canvas) {
