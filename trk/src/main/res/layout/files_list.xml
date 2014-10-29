@@ -4,20 +4,18 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fileImg"
-        android:src="@drawable/ic_launcher"
-        android:contentDescription="@string/RecordList_IconDesc" />
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:text="@string/hello_world"
         android:id="@+id/filename"
+        android:drawableStart="@drawable/ic_gpx_file"
+        android:drawableLeft="@drawable/ic_gpx_file"
         android:textSize="24dp"
         android:paddingStart="4dp"
+        android:drawablePadding="12dp"
+        android:paddingEnd="4dp"
         android:gravity="center_vertical"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@drawable/bcg_frame"/>
 </LinearLayout>

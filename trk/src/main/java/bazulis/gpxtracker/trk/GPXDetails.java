@@ -1,14 +1,17 @@
 package bazulis.gpxtracker.trk;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +56,11 @@ public class GPXDetails extends Activity {
         t_maxheight = (TextView) findViewById(R.id.t_maxheight);
         t_minheight = (TextView) findViewById(R.id.t_minheight);
         t_deltaheight = (TextView) findViewById(R.id.t_deltaheight);
+
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        int w = size.x;
+        map.setLayoutParams(new LinearLayout.LayoutParams(w, w));
 
         GPXFile gpx = new GPXFile(filename, false);
         gpx.analyzeGPX(this);

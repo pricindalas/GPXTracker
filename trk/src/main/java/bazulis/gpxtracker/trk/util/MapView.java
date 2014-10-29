@@ -26,19 +26,15 @@ public class MapView extends View {
     private float dlonSeg;
     private float dH;
     private int size, skipper;
-    private Paint grid, mapLine;
+    private Paint mapLine;
     private Context context;
     private List<Float> lats, lons, eles;
     public MapView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
         this.context = context;
         lats = new ArrayList<Float>();
         lons = new ArrayList<Float>();
-
-        grid = new Paint();
-        grid.setColor(Color.rgb(50,50,50));
-        grid.setStrokeWidth(1);
-        grid.setStyle(Paint.Style.STROKE);
 
         mapLine = new Paint();
         mapLine.setColor(Color.rgb(255, 0, 0));
@@ -48,10 +44,6 @@ public class MapView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         size = canvas.getHeight();
-        canvas.drawLine(0, 0, size-1, 0, grid);
-        canvas.drawLine(0, size-1, size-1, size-1, grid);
-        canvas.drawLine(0, 0, 0, size-1, grid);
-        canvas.drawLine(size-1, 0, size-1, size-1, grid);
         if (!lats.isEmpty() && !lons.isEmpty()) {
             int x1, x2, y1, y2;
             float elev;
