@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context="bazulis.gpxtracker.trk.GPXDetails">
+    tools:context="bazulis.gpxtracker.trk.GPXDetails"
+    style="@style/scheme1">
 
     <LinearLayout
         android:layout_width="fill_parent"

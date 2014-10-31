@@ -3,6 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo">
         <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/bcg_change</item>
+        <item name="android:textColor">#a8a9ad</item>
     </style>
-
+    <style name="bcg_change" parent="android:Widget.ActionBar">
+        <item name="android:background">#2d3e50</item>
+        <item name="android:textColor">#a8a9ad</item>
+    </style>
+    <style name="scheme1" parent="AppTheme">
+        <item name="android:background">#34495e</item>
+    </style>
 </resources>

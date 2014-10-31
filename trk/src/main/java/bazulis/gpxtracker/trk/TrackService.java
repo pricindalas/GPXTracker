@@ -32,7 +32,7 @@ public class TrackService extends Service {
 
     ///
     private boolean updateNotif;
-    private static boolean isAppVisible;
+    private boolean isAppVisible;
     private NotificationManager nmanager;
     private LocationListener locationListener;
     private LocationManager locationManager;
@@ -80,7 +80,7 @@ public class TrackService extends Service {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
-        filter.addAction(BRActions.ACTION_PUSHCOMMANDS);
+        filter.addAction(BRActions.SERVICE_RECEIVER);
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -104,7 +104,7 @@ public class TrackService extends Service {
         broadcast.putExtra("distance", this.distance);
         broadcast.putExtra("speed", this.speed);
         broadcast.putExtra("avspeed", this.avspeed);
-        broadcast.setAction(BRActions.ACTION_GETDATA);
+        broadcast.setAction(BRActions.MAIN_RECEIVER);
         sendBroadcast(broadcast);
     }
 
@@ -136,7 +136,7 @@ public class TrackService extends Service {
         broadcast.putExtra("TYPE", 1);
         broadcast.putExtra("gps", gps);
         broadcast.putExtra("color", color);
-        broadcast.setAction(BRActions.ACTION_GETDATA);
+        broadcast.setAction(BRActions.MAIN_RECEIVER);
         sendBroadcast(broadcast);
         nbuilder.setContentText(gps);
         nmanager.notify(serviceID, nbuilder.build());

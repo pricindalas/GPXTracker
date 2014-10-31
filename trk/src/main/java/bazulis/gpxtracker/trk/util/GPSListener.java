@@ -105,6 +105,6 @@ public class GPSListener implements LocationListener {
     @Override
     public void onProviderDisabled(String s) {
         firstOnChangeTicked = false;
-        service.gpsStatus(service.getString(R.string.gps_isdisabled), Color.YELLOW);
+        service.gpsStatus(service.getString(R.string.gps_isdisabled), Color.RED);
     }
 }

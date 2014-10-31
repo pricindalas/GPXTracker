@@ -5,6 +5,6 @@ package bazulis.gpxtracker.trk.util;
  *
  */
 public class BRActions {
-    public static String ACTION_GETDATA = "bazulis.gpxtracker.trk.GETDATA";
-    public static String ACTION_PUSHCOMMANDS = "bazulis.gpxtracker.trk.PUSHCOMMANDS";
+    public static String MAIN_RECEIVER = "bazulis.gpxtracker.trk.GETDATA";
+    public static String SERVICE_RECEIVER = "bazulis.gpxtracker.trk.PUSHCOMMANDS";
 }

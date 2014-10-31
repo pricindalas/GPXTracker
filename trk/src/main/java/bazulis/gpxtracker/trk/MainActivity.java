@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +26,10 @@ public class MainActivity extends Activity {
 
     private boolean fileResuming;
     private String filename;
+    private BroadcastReceiver receiver;
 
-    private static TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status;
+    private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status;
+    private ImageView ic_gps_status;
     private Button b_start, b_stop;
 
     @Override
@@ -38,6 +42,7 @@ public class MainActivity extends Activity {
         t_speed = (TextView) findViewById(R.id.t_speed);
         t_avspeed = (TextView) findViewById(R.id.t_avspeed);
         t_gps_status = (TextView) findViewById(R.id.t_gps_status);
+        ic_gps_status = (ImageView) findViewById(R.id.ic_gps_status);
 
         b_start = (Button) findViewById(R.id.b_start);
         b_stop = (Button) findViewById(R.id.b_stop);
@@ -49,6 +54,48 @@ public class MainActivity extends Activity {
             b_start.setEnabled(true);
             b_stop.setEnabled(false);
         }
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BRActions.MAIN_RECEIVER);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // 0 - ateinantys duomenys is LocationListener
+                // 1 - ateinantis GPS statuso pakeitimas
+                switch (intent.getIntExtra("TYPE", 0)) {
+                    case 0 : {
+                        t_duration.setText(intent.getStringExtra("duration"));
+                        t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
+                        t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
+                        t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
+                    }
+                    case 1 : {
+                        int color = intent.getIntExtra("color", Color.GRAY);
+                        t_gps_status.setText(intent.getStringExtra("gps"));
+                        t_gps_status.setTextColor(color);
+                        switch (color) {
+                            case Color.GREEN: {
+                                ic_gps_status.setImageResource(R.drawable.ic_gps_receiving);
+                                break;
+                            }
+                            case Color.YELLOW: {
+                                ic_gps_status.setImageResource(R.drawable.gps_searching);
+                                break;
+                            }
+                            case Color.RED: {
+                                ic_gps_status.setImageResource(R.drawable.gps_disconected);
+                                break;
+                            }
+                            case Color.GRAY: {
+                                ic_gps_status.setImageResource(R.drawable.ic_gps_idle);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -80,7 +127,7 @@ public class MainActivity extends Activity {
 
         // Siusti atsibudimo intenta.
         Intent intent = new Intent();
-        intent.setAction(BRActions.ACTION_PUSHCOMMANDS);
+        intent.setAction(BRActions.SERVICE_RECEIVER);
         intent.putExtra("visible", true);
         sendBroadcast(intent);
 
@@ -92,11 +139,17 @@ public class MainActivity extends Activity {
 
         // Siusti uzmigimo intenta.
         Intent intent = new Intent();
-        intent.setAction(BRActions.ACTION_PUSHCOMMANDS);
+        intent.setAction(BRActions.SERVICE_RECEIVER);
         intent.putExtra("visible", false);
         sendBroadcast(intent);
 
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     @Override
@@ -157,30 +210,10 @@ public class MainActivity extends Activity {
 
     private void stopService() {
         Intent stopIntent = new Intent();
-        stopIntent.setAction(BRActions.ACTION_PUSHCOMMANDS);
+        stopIntent.setAction(BRActions.SERVICE_RECEIVER);
         stopIntent.putExtra("stop", true);
         sendBroadcast(stopIntent);
         t_gps_status.setText(getString(R.string.gps_status));
         t_gps_status.setTextColor(Color.GRAY);
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static class GPXBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // 0 - ateinantys duomenys is LocationListener
-            // 1 - ateinantis GPS statuso pakeitimas
-            switch (intent.getIntExtra("TYPE", 0)) {
-                case 0 : {
-                    t_duration.setText(intent.getStringExtra("duration"));
-                    t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
-                    t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
-                    t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
-                }
-                case 1 : {
-                    t_gps_status.setText(intent.getStringExtra("gps"));
-                    t_gps_status.setTextColor(intent.getIntExtra("color", Color.GRAY));
-                }
-            }
-        }
     }
 }
