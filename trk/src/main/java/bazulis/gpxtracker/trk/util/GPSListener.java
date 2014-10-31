@@ -27,6 +27,7 @@ public class GPSListener implements LocationListener {
         startTime = System.currentTimeMillis();
         prevTime = startTime;
         totalTime = 0;
+        duration = totalTime-getTZOffset();
     }
     public GPSListener(TrackService service, int minimumSpeed, long totalTime, double distance, long startTime, long prevTime) {
         this.service = service;
