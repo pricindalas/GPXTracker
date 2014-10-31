@@ -3,7 +3,6 @@ package bazulis.gpxtracker.trk.util;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import java.util.TimeZone;
 
 import bazulis.gpxtracker.trk.TrackService;
 
@@ -27,25 +26,20 @@ public class GPSListener implements LocationListener {
         startTime = System.currentTimeMillis();
         prevTime = startTime;
         totalTime = 0;
-        duration = totalTime-getTZOffset();
+        duration = totalTime;
     }
     public GPSListener(TrackService service, int minimumSpeed, long totalTime, double distance, long startTime, long prevTime) {
         this.service = service;
         this.minimumSpeed = minimumSpeed;
         this.totalTime = totalTime;
         this.distance = distance;
-        this.startTime = startTime + getTZOffset();
+        this.startTime = startTime;
         this.prevTime = prevTime;
         avspeed = (distance/(totalTime/1000))*3.6;
-        duration = totalTime-getTZOffset();
+        duration = totalTime;
         this.service.updateLocation(duration, distance / 1000, speed, avspeed);
     }
-    /////////////////////////////////////////UTIL FUNKCIJOS/////////////////////////////////////////
-    private long getTZOffset() {
-        TimeZone tz = TimeZone.getDefault();
-        return tz.getRawOffset()+tz.getDSTSavings();
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void onLocationChanged(Location location) {
         service.gpsStatus = 2;
@@ -57,9 +51,9 @@ public class GPSListener implements LocationListener {
         if(speed > minimumSpeed || minimumSpeed==0) {
             totalTime += segTime;
             avspeed = (distance/(totalTime/1000))*3.6;
-            duration = totalTime-getTZOffset();
+            duration = totalTime;
             service.updateLocation(duration, distance / 1000, speed, avspeed);
-            service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime-getTZOffset());
+            service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime-BRActions.getTZOffset());
         }
     }
 

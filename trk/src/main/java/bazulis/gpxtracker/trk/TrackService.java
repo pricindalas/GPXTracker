@@ -80,7 +80,7 @@ public class TrackService extends Service {
         distance = 0;
         speed = 0;
         avspeed = 0;
-        duration = 0;
+        duration = 0 - BRActions.getTZOffset();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -134,7 +134,7 @@ public class TrackService extends Service {
     }
 
     public void updateLocation(long duration, double distance, double speed, double avspeed) {
-        this.duration = duration;
+        this.duration = duration - BRActions.getTZOffset();
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;
