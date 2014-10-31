@@ -1,17 +1,10 @@
 package bazulis.gpxtracker.trk.util;
 
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 
-import bazulis.gpxtracker.trk.R;
 import bazulis.gpxtracker.trk.TrackService;
 
 /**
@@ -23,17 +16,11 @@ public class GPSListener implements LocationListener {
     private Location prevLocation;
     private double distance;
     private int minimumSpeed;
-    public String duration;
     public double speed, avspeed;
 
-    private boolean firstOnChangeTicked;
-
-    private long totalTime, prevTime, startTime;
-    private DateFormat dFormat;
+    private long totalTime, prevTime, startTime, duration;
 
     public GPSListener(TrackService service, int minimumSpeed) {
-        firstOnChangeTicked = false;
-        dFormat = new SimpleDateFormat("HH:mm:ss");
         this.service = service;
         distance = 0;
         this.minimumSpeed = minimumSpeed;
@@ -42,8 +29,6 @@ public class GPSListener implements LocationListener {
         totalTime = 0;
     }
     public GPSListener(TrackService service, int minimumSpeed, long totalTime, double distance, long startTime, long prevTime) {
-        firstOnChangeTicked = false;
-        dFormat = new SimpleDateFormat("HH:mm:ss");
         this.service = service;
         this.minimumSpeed = minimumSpeed;
         this.totalTime = totalTime;
@@ -51,7 +36,7 @@ public class GPSListener implements LocationListener {
         this.startTime = startTime + getTZOffset();
         this.prevTime = prevTime;
         avspeed = (distance/(totalTime/1000))*3.6;
-        duration = dFormat.format(new Date(totalTime-getTZOffset()));
+        duration = totalTime-getTZOffset();
         this.service.updateLocation(duration, distance / 1000, speed, avspeed);
     }
     /////////////////////////////////////////UTIL FUNKCIJOS/////////////////////////////////////////
@@ -62,11 +47,7 @@ public class GPSListener implements LocationListener {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onLocationChanged(Location location) {
-        if (!firstOnChangeTicked) {
-            service.gpsStatus(service.getString(R.string.gps_connected), Color.GREEN);
-            firstOnChangeTicked = true;
-            Toast.makeText(service, service.getString(R.string.toast_trackstarted), Toast.LENGTH_SHORT).show();
-        }
+        service.gpsStatus = 2;
         long segTime = System.currentTimeMillis()-prevTime;
         prevTime = System.currentTimeMillis();
         speed = location.getSpeed() * 3.6;
@@ -75,7 +56,7 @@ public class GPSListener implements LocationListener {
         if(speed > minimumSpeed || minimumSpeed==0) {
             totalTime += segTime;
             avspeed = (distance/(totalTime/1000))*3.6;
-            duration = dFormat.format(new Date(totalTime-getTZOffset()));
+            duration = totalTime-getTZOffset();
             service.updateLocation(duration, distance / 1000, speed, avspeed);
             service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime-getTZOffset());
         }
@@ -85,26 +66,24 @@ public class GPSListener implements LocationListener {
     public void onStatusChanged(String s, int i, Bundle bundle) {
         switch (i) {
             case 0: {
-                service.gpsStatus(service.getString(R.string.gps_problem), Color.RED);
-                firstOnChangeTicked = false;
+                service.gpsStatus = 0;
             }
             case 1: {
-                service.gpsStatus(service.getString(R.string.gps_searching), Color.YELLOW);
-                firstOnChangeTicked = false;
+                service.gpsStatus = 1;
             }
-            case 2: service.gpsStatus(service.getString(R.string.gps_connected), Color.GREEN);
+            case 2: {
+                service.gpsStatus = 2;
+            }
         }
     }
 
     @Override
     public void onProviderEnabled(String s) {
-        firstOnChangeTicked = false;
-        service.gpsStatus(service.getString(R.string.gps_isenabled), Color.YELLOW);
+        service.gpsStatus = 1;
     }
 
     @Override
     public void onProviderDisabled(String s) {
-        firstOnChangeTicked = false;
-        service.gpsStatus(service.getString(R.string.gps_isdisabled), Color.RED);
+        service.gpsStatus = 0;
     }
 }

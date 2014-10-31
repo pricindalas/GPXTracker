@@ -26,13 +26,18 @@ public class TrackService extends Service {
     private Notification.Builder nbuilder;
     private BroadcastReceiver receiver;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     ///Trackerio duomenys, skirti interfeisui
     public double distance, speed, avspeed;
-    public String duration;
+    public long duration;
 
     ///
     private boolean updateNotif;
-    private boolean isAppVisible;
+    public int gpsStatus = 0;
+    // GPS status int : 0 - gps isjungtas
+    //                  1 - ieskoma gps signalo
+    //                  2 - gps veikia, prisijungta
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private NotificationManager nmanager;
     private LocationListener locationListener;
     private LocationManager locationManager;
@@ -66,7 +71,6 @@ public class TrackService extends Service {
     @Override
     public void onCreate() {
         setServiceRunning(true);
-        isAppVisible = true;
         Toast.makeText(this, getString(R.string.toast_servicestarted), Toast.LENGTH_SHORT).show();
         nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -76,7 +80,7 @@ public class TrackService extends Service {
         distance = 0;
         speed = 0;
         avspeed = 0;
-        duration = "00:00:00";
+        duration = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -84,28 +88,26 @@ public class TrackService extends Service {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                isAppVisible = intent.getBooleanExtra("visible", true);
-                if (isAppVisible) broadcastData();
                 boolean stop = intent.getBooleanExtra("stop", false);
                 if (stop) {
                     stopForeground(true);
                     stopSelf();
                 }
+                boolean data = intent.getBooleanExtra("getdata", false);
+                if (data) {
+                    Intent broadcast = new Intent();
+                    broadcast.setAction(BRActions.MAIN_RECEIVER);
+                    broadcast.putExtra("duration", duration);
+                    broadcast.putExtra("distance", distance);
+                    broadcast.putExtra("speed", speed);
+                    broadcast.putExtra("avspeed", avspeed);
+                    broadcast.putExtra("gps", gpsStatus);
+                    sendBroadcast(broadcast);
+                }
             }
         };
         registerReceiver(receiver, filter);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-    }
-
-    private void broadcastData() {
-        Intent broadcast = new Intent();
-        broadcast.putExtra("TYPE", 0);
-        broadcast.putExtra("duration", this.duration);
-        broadcast.putExtra("distance", this.distance);
-        broadcast.putExtra("speed", this.speed);
-        broadcast.putExtra("avspeed", this.avspeed);
-        broadcast.setAction(BRActions.MAIN_RECEIVER);
-        sendBroadcast(broadcast);
     }
 
     @Override
@@ -131,23 +133,11 @@ public class TrackService extends Service {
         startForeground(serviceID, nbuilder.build());
     }
 
-    public void gpsStatus(String gps, int color) {
-        Intent broadcast = new Intent();
-        broadcast.putExtra("TYPE", 1);
-        broadcast.putExtra("gps", gps);
-        broadcast.putExtra("color", color);
-        broadcast.setAction(BRActions.MAIN_RECEIVER);
-        sendBroadcast(broadcast);
-        nbuilder.setContentText(gps);
-        nmanager.notify(serviceID, nbuilder.build());
-    }
-
-    public void updateLocation(String duration, double distance, double speed, double avspeed) {
+    public void updateLocation(long duration, double distance, double speed, double avspeed) {
         this.duration = duration;
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;
-        if (isAppVisible) broadcastData();
 
         if (updateNotif) {
             nbuilder.setContentText("T: " + duration + "; " + new DecimalFormat("##.# km").format(distance) + "; AVS" + new DecimalFormat("##.# km/h").format(avspeed));
