@@ -35,6 +35,7 @@ public class GPXDetails extends Activity {
     private TextView t_maxheight, t_minheight, t_deltaheight;
     public MapView map;
     private String filename;
+    private boolean fileIsEmpty = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +64,22 @@ public class GPXDetails extends Activity {
         map.setLayoutParams(new LinearLayout.LayoutParams(w, w));
 
         GPXFile gpx = new GPXFile(filename, false);
-        gpx.analyzeGPX(this);
-        map.setup(gpx.lats, gpx.lons, gpx.eles);
+        if (!gpx.isEmptyFile()) {
+            gpx.analyzeGPX(this);
+            map.setup(gpx.lats, gpx.lons, gpx.eles);
+        } else {
+            fileIsEmpty = true;
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.gpxdetails, menu);
+        if (fileIsEmpty) {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+        }
         return true;
     }
     @Override

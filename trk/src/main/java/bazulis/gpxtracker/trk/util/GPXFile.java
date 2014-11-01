@@ -166,4 +166,7 @@ public class GPXFile {
         }
     }
 
+    public boolean isEmptyFile() {
+        return eles.size() <= 0;
+    }
 }

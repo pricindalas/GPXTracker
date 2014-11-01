@@ -26,10 +26,9 @@ import bazulis.gpxtracker.trk.util.BRActions;
 
 public class MainActivity extends Activity {
 
-    private boolean fileResuming;
-    private String filename;
     private BroadcastReceiver receiver;
     private UITicker ticker;
+    private boolean serviceRunning = false;
 
     private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status;
     private ImageView ic_gps_status;
@@ -50,19 +49,17 @@ public class MainActivity extends Activity {
         b_start = (Button) findViewById(R.id.b_start);
         b_stop = (Button) findViewById(R.id.b_stop);
 
-        if (isServiceRunning()) {
-            b_start.setEnabled(false);
-            b_stop.setEnabled(true);
-        } else {
-            b_start.setEnabled(true);
-            b_stop.setEnabled(false);
-        }
+        b_start.setEnabled(true);
+        b_stop.setEnabled(false);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(BRActions.MAIN_RECEIVER);
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                serviceRunning = true;
+                b_start.setEnabled(false);
+                b_stop.setEnabled(true);
                 t_duration.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(intent.getLongExtra("duration", 0))));
                 t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
                 t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
@@ -135,13 +132,11 @@ public class MainActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            filename = data.getStringExtra("filename");
-            if(!isServiceRunning()) {
+            if(!serviceRunning) {
                 b_start.setEnabled(false);
                 b_stop.setEnabled(true);
-                fileResuming = true;
-                startService();
-                Toast.makeText(this, getString(R.string.intent_resumeFileOK)+" "+filename, Toast.LENGTH_SHORT).show();
+                startService(true, data.getStringExtra("filename"));
+                Toast.makeText(this, getString(R.string.intent_resumeFileOK)+" "+data.getStringExtra("filename"), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, getString(R.string.intent_resumeFileFail), Toast.LENGTH_SHORT).show();
             }
@@ -151,7 +146,7 @@ public class MainActivity extends Activity {
     public void begin(View view) {
         b_start.setEnabled(false);
         b_stop.setEnabled(true);
-        startService();
+        startService(false, null);
     }
 
     public void end(View view) {
@@ -162,6 +157,7 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 b_stop.setEnabled(false);
                 b_start.setEnabled(true);
+                serviceRunning = false;
                 stopService();
             }
         });
@@ -173,15 +169,11 @@ public class MainActivity extends Activity {
         });
         builder.show();
     }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    private boolean isServiceRunning() {
-        return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.IS_SERVICE_RUNNING, false);
-    }
 
-    private void startService() {
+    private void startService(boolean resume, String filename) {
         Intent serviceIntent = new Intent(this, TrackService.class);
-        if (fileResuming) serviceIntent.putExtra("filename", filename);
+        if (resume) serviceIntent.putExtra("filename", filename);
         startService(serviceIntent);
     }
 
@@ -202,11 +194,11 @@ public class MainActivity extends Activity {
             super.run();
             while (running) {
                 try {
-                    Thread.sleep(1000);
                     Intent request = new Intent();
                     request.setAction(BRActions.SERVICE_RECEIVER);
                     request.putExtra("getdata", true);
                     sendBroadcast(request);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

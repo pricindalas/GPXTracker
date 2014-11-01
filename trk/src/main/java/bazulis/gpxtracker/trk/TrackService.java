@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.IBinder;
@@ -33,8 +32,8 @@ public class TrackService extends Service {
     private double avspeed;
     private long duration;
 
-    ///
     private boolean updateNotif;
+    ///
     public int gpsStatus = 0;
     // GPS status int : 0 - gps isjungtas
     //                  1 - ieskoma gps signalo
@@ -72,7 +71,6 @@ public class TrackService extends Service {
 
     @Override
     public void onCreate() {
-        setServiceRunning(true);
         Toast.makeText(this, getString(R.string.toast_servicestarted), Toast.LENGTH_SHORT).show();
         nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -117,7 +115,6 @@ public class TrackService extends Service {
         locationManager.removeUpdates(locationListener);
         gpx.saveGPX();
         stopForeground(true);
-        setServiceRunning(false);
         unregisterReceiver(receiver);
         Toast.makeText(this, getString(R.string.toast_trackstopped), Toast.LENGTH_SHORT).show();
     }
@@ -158,12 +155,5 @@ public class TrackService extends Service {
 
     boolean isNotifBarEnabled() {
         return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_UPDATE_NOTIFICATION_BAR, true);
-    }
-
-    void setServiceRunning(boolean run) {
-        SharedPreferences settings = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(SettingsActivity.IS_SERVICE_RUNNING, run);
-        editor.apply();
     }
 }
