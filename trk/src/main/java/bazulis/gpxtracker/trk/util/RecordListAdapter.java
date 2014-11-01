@@ -16,8 +16,8 @@ import bazulis.gpxtracker.trk.R;
  * Pritaikytas failo saraso adapteris
  */
 public class RecordListAdapter extends BaseAdapter {
-    private List<File> files;
-    private LayoutInflater inflater;
+    private final List<File> files;
+    private final LayoutInflater inflater;
 
     public RecordListAdapter(List<File> files, LayoutInflater inf) {
         this.files = files;

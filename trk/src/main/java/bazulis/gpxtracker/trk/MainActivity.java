@@ -192,6 +192,7 @@ public class MainActivity extends Activity {
         sendBroadcast(stopIntent);
         t_gps_status.setText(getString(R.string.gps_status));
         t_gps_status.setTextColor(Color.GRAY);
+        ic_gps_status.setImageResource(R.drawable.ic_gps_idle);
     }
 
     private class UITicker extends Thread {

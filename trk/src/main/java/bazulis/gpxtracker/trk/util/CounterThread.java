@@ -13,11 +13,13 @@ import bazulis.gpxtracker.trk.GPXDetails;
  * Created by bazulis on 14.7.12.
  * GPX failo skaiciuotuvas
  */
-public class CounterThread extends Thread {
-    private boolean countEles;
+class CounterThread extends Thread {
+    private final boolean countEles;
     private GPXDetails activity;
-    private List<Float> lats, lons, eles;
-    private List<String> times;
+    private final List<Float> lats;
+    private final List<Float> lons;
+    private List<Float> eles;
+    private final List<String> times;
     private long duration;
     private double distance;
     private double avspeed;
@@ -113,8 +115,5 @@ public class CounterThread extends Thread {
     }
     public long getDuration() {
         return duration;
-    }
-    public double getAvspeed() {
-        return avspeed;
     }
 }

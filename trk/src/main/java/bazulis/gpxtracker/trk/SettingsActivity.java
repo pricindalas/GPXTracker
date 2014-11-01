@@ -15,8 +15,9 @@ public class SettingsActivity extends Activity {
     public static final String SETTINGS_UPDATE_NOTIFICATION_BAR = "notification_bar_update";
     public static final String IS_SERVICE_RUNNING = "is_service_running";
 
-    public static int REFRESH_INTERVAL, MINIMUM_SPEED;
-    public static boolean UPDATE_NOTIFICATION_BAR;
+    private static int REFRESH_INTERVAL;
+    private static int MINIMUM_SPEED;
+    private static boolean UPDATE_NOTIFICATION_BAR;
 
     private TextView interval, speed;
     private CheckBox update_status_bar;

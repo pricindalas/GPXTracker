@@ -24,14 +24,14 @@ import bazulis.gpxtracker.trk.GPXDetails;
  * GPX failo objektas su pagrindinem funkcijom.
  */
 public class GPXFile {
-    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/gpx/";
-    public List<Float> lats = new ArrayList<Float>();
-    public List<Float> lons = new ArrayList<Float>();
-    public List<Float> eles = new ArrayList<Float>();
-    public List<String> times = new ArrayList<String>();
-    public String filename;
+    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/gpx/";
+    public final List<Float> lats = new ArrayList<Float>();
+    public final List<Float> lons = new ArrayList<Float>();
+    public final List<Float> eles = new ArrayList<Float>();
+    private final List<String> times = new ArrayList<String>();
+    private final String filename;
 
-    public double distance, avspeed;
+    public double distance;
     public long duration, startTime, lastTime;
 
     private FileOutputStream outputStream;
@@ -111,7 +111,6 @@ public class GPXFile {
         counter.run();
         duration = counter.getDuration();
         distance = counter.getDistance();
-        avspeed = counter.getAvspeed();
         try {
             startTime = dformatter.parse(times.get(0)).getTime();
             lastTime = dformatter.parse(times.get(times.size() - 1)).getTime();
@@ -148,7 +147,7 @@ public class GPXFile {
         }
     }
 
-    public void addSegment(double lat, double lon, double elevation, String time) {
+    void addSegment(double lat, double lon, double elevation, String time) {
         String trackTag = "      <trkpt lat=\"" + lat + "\" lon=\"" + lon + "\">\n        <ele>" + elevation + "</ele>\n        <time>" + time + "</time>\n      </trkpt>\n";
         try {
             outputStream.write(trackTag.getBytes());

@@ -16,13 +16,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ic_gps_status"
-                    android:src="@drawable/ic_gps_idle"/>
+                    android:src="@drawable/ic_gps_idle"
+                    android:contentDescription="@string/gps"/>
                 <TextView
                     android:id="@+id/t_gps_status"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:text="@string/gps_status"
-                    android:paddingLeft="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:textSize="20dp"
                     android:gravity="center_vertical" />
                 </LinearLayout>
@@ -34,6 +36,7 @@
                 android:text="@string/zduration"
                 android:textSize="40sp"
                 android:drawableLeft="@drawable/ic_duration"
+                android:drawableStart="@drawable/ic_duration"
                 android:drawablePadding="16dp"/>
 
             <TextView
@@ -43,6 +46,7 @@
                 android:text="@string/zdistance"
                 android:textSize="40sp"
                 android:drawableLeft="@drawable/ic_distance"
+                android:drawableStart="@drawable/ic_distance"
                 android:drawablePadding="16dp"/>
 
             <TextView
@@ -52,17 +56,18 @@
                 android:text="@string/zspeed"
                 android:textSize="40sp"
                 android:drawableLeft="@drawable/ic_speed"
+                android:drawableStart="@drawable/ic_speed"
                 android:drawablePadding="16dp"/>
 
             <TextView
                 android:id="@+id/t_avspeed"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/zavspeed"
                 android:textSize="40sp"
                 android:drawableLeft="@drawable/ic_avspeed"
-                android:drawablePadding="16dp"/>
+                android:drawableStart="@drawable/ic_avspeed"
+                android:drawablePadding="16dp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"

@@ -22,14 +22,16 @@ import bazulis.gpxtracker.trk.util.GPXFile;
 
 public class TrackService extends Service {
 
-    public static final int serviceID = 19891020;
+    private static final int serviceID = 19891020;
     private Notification.Builder nbuilder;
     private BroadcastReceiver receiver;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///Trackerio duomenys, skirti interfeisui
-    public double distance, speed, avspeed;
-    public long duration;
+    private double distance;
+    private double speed;
+    private double avspeed;
+    private long duration;
 
     ///
     private boolean updateNotif;
@@ -120,7 +122,7 @@ public class TrackService extends Service {
         Toast.makeText(this, getString(R.string.toast_trackstopped), Toast.LENGTH_SHORT).show();
     }
 
-    public void makeForeground() {
+    void makeForeground() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -146,19 +148,19 @@ public class TrackService extends Service {
     }
 
     ///SETTINGS///
-    public int getMinimumSpeed() {
+    int getMinimumSpeed() {
         return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getInt(SettingsActivity.SETTINGS_MINIMUM_SPEED, 2);
     }
 
-    public int getRefreshInterval() {
+    int getRefreshInterval() {
         return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getInt(SettingsActivity.SETTINGS_REFRESH_INTERVAL, 2) * 1000;
     }
 
-    public boolean isNotifBarEnabled() {
+    boolean isNotifBarEnabled() {
         return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_UPDATE_NOTIFICATION_BAR, true);
     }
 
-    public void setServiceRunning(boolean run) {
+    void setServiceRunning(boolean run) {
         SharedPreferences settings = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(SettingsActivity.IS_SERVICE_RUNNING, run);

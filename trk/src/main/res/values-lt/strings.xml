@@ -10,7 +10,6 @@
     <string name="zduration">00:00:00</string>
     <string name="distance">Atstumas:</string>
     <string name="zdistance">0.00 km</string>
-    <string name="speed">Greitis:</string>
     <string name="zspeed">0.00 km/h</string>
     <string name="b_stop">STABDYTI</string>
     <string name="b_start">PRADĖTI</string>
@@ -24,17 +23,13 @@
     <string name="zavspeed">0.00 km/h</string>
     <string name="avspeed">Vid. greitis:</string>
     <string name="title_activity_record_list">Pasirinkite GPX failą:</string>
-    <string name="RecordList_chooseFile">Pasirinkite failą:</string>
-    <string name="RecordList_IconDesc">GPX Trakeris</string>
     <string name="action_RecordList">GPX Įrašai</string>
     <string name="title_activity_gpxdetails">GPX Failas</string>
     <string name="action_share">Dalintis</string>
     <string name="action_delete">Ištrinti</string>
     <string name="gps_connected">Prisijungta per GPS</string>
     <string name="gps_searching">Ieškoma GPS signalo…</string>
-    <string name="gps_problem">Ryšys prarastas, ieškoma…</string>
     <string name="gps_isdisabled">GPS išjungtas, įjunkite.</string>
-    <string name="gps_isenabled">GPS įjungtas, ieškoma signalo…</string>
     <string name="toast_trackstarted">Sekimas paleistas</string>
     <string name="toast_gpxempty">GPX failas tuščias!</string>
     <string name="toast_wasdeleted"> ištrintas</string>
@@ -51,10 +46,6 @@
     <string name="yes">Taip</string>
     <string name="confirm_no">Ne, tai ne…</string>
     <string name="dialog_delete">Ar tikrai norite ištrinti šį failą?</string>
-    <string name="gpx_end_location">Pabaigos vieta:</string>
-    <string name="gpx_start_location">Pradžios vieta:</string>
-    <string name="latitude">Platuma:</string>
-    <string name="longitude">Ilguma:</string>
     <string name="gpx_no_location">\?\?\?</string>
     <string name="action_resumeTracking">Tęsti sekimą</string>
     <string name="intent_resumeFileFail">Pirma sustabdykite sekimą!</string>

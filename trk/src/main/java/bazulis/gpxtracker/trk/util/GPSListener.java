@@ -11,13 +11,17 @@ import bazulis.gpxtracker.trk.TrackService;
  * GPS listeneris
  */
 public class GPSListener implements LocationListener {
-    private TrackService service;
+    private final TrackService service;
     private Location prevLocation;
     private double distance;
-    private int minimumSpeed;
-    public double speed, avspeed;
+    private final int minimumSpeed;
+    private double speed;
+    private double avspeed;
 
-    private long totalTime, prevTime, startTime, duration;
+    private long totalTime;
+    private long prevTime;
+    private final long startTime;
+    private long duration;
 
     public GPSListener(TrackService service, int minimumSpeed) {
         this.service = service;

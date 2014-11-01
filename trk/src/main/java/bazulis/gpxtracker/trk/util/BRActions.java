@@ -7,8 +7,8 @@ import java.util.TimeZone;
  *
  */
 public class BRActions {
-    public static String MAIN_RECEIVER = "bazulis.gpxtracker.trk.GETDATA";
-    public static String SERVICE_RECEIVER = "bazulis.gpxtracker.trk.PUSHCOMMANDS";
+    public static final String MAIN_RECEIVER = "bazulis.gpxtracker.trk.GETDATA";
+    public static final String SERVICE_RECEIVER = "bazulis.gpxtracker.trk.PUSHCOMMANDS";
 
     public static long getTZOffset() {
         TimeZone tz = TimeZone.getDefault();

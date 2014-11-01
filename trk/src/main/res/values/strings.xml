@@ -14,7 +14,6 @@
     <string name="zduration">00:00:00</string>
     <string name="distance">Distance:</string>
     <string name="zdistance">0.00 km</string>
-    <string name="speed">Speed:</string>
     <string name="zspeed">0.00 km/h</string>
     <string name="b_stop">STOP</string>
     <string name="b_start">START</string>
@@ -28,17 +27,13 @@
     <string name="zavspeed">0.00 km/h</string>
     <string name="avspeed">Avg. speed:</string>
     <string name="title_activity_record_list">Choose your GPX file:</string>
-    <string name="RecordList_chooseFile">Choose a file:</string>
-    <string name="RecordList_IconDesc">GPX Icon</string>
     <string name="action_RecordList">GPX Records</string>
     <string name="title_activity_gpxdetails">GPX File</string>
     <string name="action_share">Share</string>
     <string name="action_delete">Delete</string>
     <string name="gps_connected">GPS is connected</string>
     <string name="gps_searching">Searching for signal…</string>
-    <string name="gps_problem">Connection lost, searching…</string>
     <string name="gps_isdisabled">GPS is disabled, please turn on.</string>
-    <string name="gps_isenabled">GPS enabled, sarching for signal…</string>
     <string name="toast_trackstarted">Tracking has started</string>
     <string name="toast_gpxempty">The GPS file is empty!</string>
     <string name="toast_wasdeleted"> was deleted</string>
@@ -51,10 +46,6 @@
     <string name="service_waitinggps">Waiting for GPS…</string>
     <string name="t_maxspeed">Max. speed:</string>
     <string name="zmaxspeed">0.00 km/h</string>
-    <string name="gpx_start_location">Start location:</string>
-    <string name="gpx_end_location">End location:</string>
-    <string name="latitude">Lat:</string>
-    <string name="longitude">Lon:</string>
     <string name="gpx_no_location">\?\?\?</string>
     <string name="action_resumeTracking">Resume tracking</string>
     <string name="intent_resumeFileOK">Resuming</string>

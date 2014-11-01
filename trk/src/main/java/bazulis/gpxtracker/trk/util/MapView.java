@@ -26,8 +26,8 @@ public class MapView extends View {
     private float dlonSeg;
     private float dH;
     private int size, skipper;
-    private Paint mapLine;
-    private Context context;
+    private final Paint mapLine;
+    private final Context context;
     private List<Float> lats, lons, eles;
     public MapView(Context context, AttributeSet attrs) {
         super(context, attrs);
