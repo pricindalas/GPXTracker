@@ -34,7 +34,7 @@ public class TrackService extends Service {
 
     private boolean updateNotif;
     ///
-    public int gpsStatus = 0;
+    public int gpsStatus = 1;
     // GPS status int : 0 - gps isjungtas
     //                  1 - ieskoma gps signalo
     //                  2 - gps veikia, prisijungta
@@ -61,6 +61,7 @@ public class TrackService extends Service {
             locationListener = new GPSListener(this, getMinimumSpeed());
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, getRefreshInterval(), 0, locationListener);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
