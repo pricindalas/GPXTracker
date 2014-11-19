@@ -32,7 +32,7 @@ public class TrackService extends Service {
     private double avspeed;
     private long duration;
     private final long tzOffset = BRActions.getTZOffset();
-    private final boolean updateNotif = isNotifBarEnabled();
+    private boolean updateNotif;
     ///
     public int gpsStatus = 1;
     // GPS status int : 0 - gps isjungtas
@@ -76,6 +76,7 @@ public class TrackService extends Service {
         nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         nbuilder = new Notification.Builder(this);
+        updateNotif = isNotifBarEnabled();
 
         distance = 0;
         speed = 0;
