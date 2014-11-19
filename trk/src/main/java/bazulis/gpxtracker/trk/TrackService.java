@@ -31,8 +31,8 @@ public class TrackService extends Service {
     private double speed;
     private double avspeed;
     private long duration;
-
-    private boolean updateNotif;
+    private final long tzOffset = BRActions.getTZOffset();
+    private final boolean updateNotif = isNotifBarEnabled();
     ///
     public int gpsStatus = 1;
     // GPS status int : 0 - gps isjungtas
@@ -75,13 +75,12 @@ public class TrackService extends Service {
         Toast.makeText(this, getString(R.string.toast_servicestarted), Toast.LENGTH_SHORT).show();
         nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        updateNotif = isNotifBarEnabled();
         nbuilder = new Notification.Builder(this);
 
         distance = 0;
         speed = 0;
         avspeed = 0;
-        duration = 0 - BRActions.getTZOffset();
+        duration = 0 - tzOffset;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -134,7 +133,7 @@ public class TrackService extends Service {
     }
 
     public void updateLocation(long duration, double distance, double speed, double avspeed) {
-        this.duration = duration - BRActions.getTZOffset();
+        this.duration = duration - tzOffset;
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;

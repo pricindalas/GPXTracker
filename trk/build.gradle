@@ -9,13 +9,13 @@ android {
             storePassword 'rokasp'
         }
     }
-    compileSdkVersion 20
-    buildToolsVersion '20.0.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.1.1'
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 20
-        versionCode 39
-        versionName '1.6.9'
+        targetSdkVersion 21
+        versionCode 40
+        versionName '1.7.0'
     }
     buildTypes {
         release {

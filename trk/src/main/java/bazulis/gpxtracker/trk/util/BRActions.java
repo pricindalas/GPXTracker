@@ -1,5 +1,6 @@
 package bazulis.gpxtracker.trk.util;
 
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -12,6 +13,11 @@ public class BRActions {
 
     public static long getTZOffset() {
         TimeZone tz = TimeZone.getDefault();
-        return tz.getRawOffset()+tz.getDSTSavings();
+        if (tz.inDaylightTime(new Date())) {
+            return tz.getRawOffset()+tz.getDSTSavings();
+        } else {
+            return tz.getRawOffset();
+        }
+
     }
 }
