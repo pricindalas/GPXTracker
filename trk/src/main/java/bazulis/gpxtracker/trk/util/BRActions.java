@@ -13,8 +13,8 @@ public class BRActions {
 
     public static long getTZOffset() {
         TimeZone tz = TimeZone.getDefault();
-        if (!tz.inDaylightTime(new Date())) {
-            return tz.getRawOffset()+tz.getDSTSavings();
+        if (tz.inDaylightTime(new Date())) {
+           return tz.getRawOffset()+tz.getDSTSavings();
         } else {
             return tz.getRawOffset();
         }

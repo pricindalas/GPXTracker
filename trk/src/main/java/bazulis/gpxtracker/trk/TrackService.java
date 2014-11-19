@@ -31,7 +31,6 @@ public class TrackService extends Service {
     private double speed;
     private double avspeed;
     private long duration;
-    private final long tzOffset = BRActions.getTZOffset();
     private boolean updateNotif;
     ///
     public int gpsStatus = 1;
@@ -81,7 +80,7 @@ public class TrackService extends Service {
         distance = 0;
         speed = 0;
         avspeed = 0;
-        duration = 0 - tzOffset;
+        duration = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -134,7 +133,7 @@ public class TrackService extends Service {
     }
 
     public void updateLocation(long duration, double distance, double speed, double avspeed) {
-        this.duration = duration - tzOffset;
+        this.duration = duration;
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;

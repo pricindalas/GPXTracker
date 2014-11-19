@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import bazulis.gpxtracker.trk.util.BRActions;
 
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
     private BroadcastReceiver receiver;
     private UITicker ticker;
     private boolean serviceRunning = false;
+    private SimpleDateFormat durationFormat;
 
     private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status;
     private ImageView ic_gps_status;
@@ -38,6 +40,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        durationFormat = new SimpleDateFormat("HH:mm:ss");
+        durationFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         t_distance = (TextView) findViewById(R.id.t_distance);
         t_duration = (TextView) findViewById(R.id.t_duration);
@@ -60,7 +65,7 @@ public class MainActivity extends Activity {
                 serviceRunning = true;
                 b_start.setEnabled(false);
                 b_stop.setEnabled(true);
-                t_duration.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(intent.getLongExtra("duration", 0))));
+                t_duration.setText(durationFormat.format(new Date(intent.getLongExtra("duration", 0))));
                 t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
                 t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
                 t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
