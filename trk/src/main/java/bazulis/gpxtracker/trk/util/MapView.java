@@ -43,7 +43,7 @@ public class MapView extends View {
     }
     @Override
     public void onDraw(Canvas canvas) {
-        size = canvas.getHeight();
+        size = canvas.getWidth();
         if (!lats.isEmpty() && !lons.isEmpty()) {
             int x1, x2, y1, y2;
             float elev;

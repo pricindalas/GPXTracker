@@ -81,7 +81,8 @@
                     android:layout_weight="1"
                     android:onClick="begin"
                     android:text="@string/b_start"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
+                    android:gravity="center"
                     android:background="@drawable/bcg_frame" />
 
                 <Button
@@ -91,7 +92,8 @@
                     android:layout_weight="1"
                     android:onClick="end"
                     android:text="@string/b_stop"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
+                    android:gravity="center"
                     android:background="@drawable/bcg_frame" />
             </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Bundle;
 import android.view.Menu;
@@ -58,9 +59,15 @@ public class GPXDetails extends Activity {
         t_minheight = (TextView) findViewById(R.id.t_minheight);
         t_deltaheight = (TextView) findViewById(R.id.t_deltaheight);
 
-        Point size = new Point();
-        getWindowManager().getDefaultDisplay().getSize(size);
-        int w = size.x;
+        int w;
+        if (Build.VERSION.SDK_INT >= 13) {
+            Point size = new Point();
+            getWindowManager().getDefaultDisplay().getSize(size);
+            w = size.x;
+        } else {
+            w = getWindowManager().getDefaultDisplay().getWidth();
+        }
+
         map.setLayoutParams(new LinearLayout.LayoutParams(w, w));
 
         GPXFile gpx = new GPXFile(filename, false);
