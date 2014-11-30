@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import bazulis.gpxtracker.trk.GPXDetails;
 
@@ -35,10 +36,11 @@ public class GPXFile {
     public long duration, startTime, lastTime;
 
     private FileOutputStream outputStream;
-    private final SimpleDateFormat dformatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS");
+    private final SimpleDateFormat dformatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private final SimpleDateFormat fformatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
     public GPXFile(String filename, boolean resumeFile) {
+        dformatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.filename = filename;
         checkFolder();
         if (resumeFile) {
@@ -49,7 +51,7 @@ public class GPXFile {
     }
 
     public GPXFile() {
-
+        dformatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.filename = fformatter.format(new Date()) + ".gpx";
         newGPX(filename);
     }
@@ -123,7 +125,7 @@ public class GPXFile {
         try {
             File file = new File(path + filename);
             outputStream = new FileOutputStream(file);
-            String startTag = "<?xml version='1.0' standalone='yes' ?>\n<gpx>\n  <trk>\n    <trkseg>\n";
+            String startTag = "<?xml version='1.0' standalone='yes' ?>\n<gpx>\n <metadata>\n  <time>"+dformatter.format(new Date())+"</time>\n </metadata>\n  <trk>\n    <trkseg>\n";
             outputStream.write(startTag.getBytes());
         } catch (IOException e) {
             e.printStackTrace();

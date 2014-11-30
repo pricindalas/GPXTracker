@@ -13,7 +13,6 @@ import bazulis.gpxtracker.trk.TrackService;
 public class GPSListener implements LocationListener {
     private final TrackService service;
     private Location prevLocation;
-    private final long tzOffset;
     private double distance;
     private final int minimumSpeed;
     private double speed;
@@ -25,7 +24,6 @@ public class GPSListener implements LocationListener {
     private long duration;
 
     public GPSListener(TrackService service, int minimumSpeed) {
-        this.tzOffset = BRActions.getTZOffset();
         this.service = service;
         distance = 0;
         this.minimumSpeed = minimumSpeed;
@@ -35,7 +33,6 @@ public class GPSListener implements LocationListener {
         duration = totalTime;
     }
     public GPSListener(TrackService service, int minimumSpeed, long totalTime, double distance, long startTime, long prevTime) {
-        this.tzOffset = BRActions.getTZOffset();
         this.service = service;
         this.minimumSpeed = minimumSpeed;
         this.totalTime = totalTime;
@@ -60,7 +57,7 @@ public class GPSListener implements LocationListener {
             avspeed = (distance/(totalTime/1000))*3.6;
             duration = totalTime;
             service.updateLocation(duration, distance / 1000, speed, avspeed);
-            service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime-tzOffset);
+            service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime);
         }
     }
 

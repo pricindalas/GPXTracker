@@ -1,11 +1,13 @@
 package bazulis.gpxtracker.trk.util;
 
 import android.location.Location;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import bazulis.gpxtracker.trk.GPXDetails;
 
@@ -52,7 +54,8 @@ class CounterThread extends Thread {
     public void run() {
         final Location loc1 = new Location("");
         final Location loc2 = new Location("");
-        SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS");
+        SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        dformat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date t1, t2;
         double time = 1;
         double dist, tmax;
@@ -70,6 +73,7 @@ class CounterThread extends Thread {
                 duration += time;
             } catch (ParseException e) {
                 e.printStackTrace();
+                Toast.makeText(activity.getApplicationContext(), "Can't read timestamp in GPX!", Toast.LENGTH_LONG).show();
             }
             loc1.setLatitude(lats.get(i));
             loc1.setLongitude(lons.get(i));
