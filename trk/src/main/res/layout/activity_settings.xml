@@ -1,95 +1,110 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/scheme1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    style="@style/scheme1">
-    <TextView
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        style="@style/scheme1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/t_interval_title"
-        android:textSize="26sp"/>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/b_interval_decrease"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="decreaseInterval"
-            android:text="@string/settings_interval_decrease"
-            android:textSize="28sp"
-            android:background="@drawable/bcg_frame" />
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/t_interval_value"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.75"
-            android:gravity="center"
-            android:text="@string/settings_interval_value"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/b_interval_increase"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="increaseInterval"
-            android:text="@string/settings_interval_increase"
-            android:textSize="28sp"
-            android:background="@drawable/bcg_frame" />
-    </LinearLayout>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/t_speed_title"
-        android:textSize="26sp"/>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:text="@string/t_interval_title"
+            android:textSize="26sp" />
 
-        <Button
-            android:id="@+id/b_speed_decrease"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="decreaseMinSpeed"
-            android:text="@string/settings_interval_decrease"
-            android:textSize="28sp"
-            android:background="@drawable/bcg_frame" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/b_interval_decrease"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bcg_frame"
+                android:onClick="decreaseInterval"
+                android:text="@string/settings_interval_decrease"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/t_interval_value"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.75"
+                android:gravity="center"
+                android:text="@string/settings_interval_value"
+                android:textSize="36sp" />
+
+            <Button
+                android:id="@+id/b_interval_increase"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bcg_frame"
+                android:onClick="increaseInterval"
+                android:text="@string/settings_interval_increase"
+                android:textSize="28sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/t_speed_value"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.75"
-            android:gravity="center"
-            android:text="@string/settings_interval_value"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/b_speed_increase"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="increaseMinSpeed"
-            android:text="@string/settings_interval_increase"
-            android:textSize="28sp"
-            android:background="@drawable/bcg_frame" />
-    </LinearLayout>
-    <CheckBox
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/chk_notification_update"
-        android:textSize="20sp"
-        android:onClick="chkBoxUpdateNotifications"
-        android:text="@string/settings_showinfotonotif" />
+            android:text="@string/t_speed_title"
+            android:textSize="26sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="These great colored icons are provided by www.icons8.com"
-        android:id="@+id/credits" />
-</LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/b_speed_decrease"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bcg_frame"
+                android:onClick="decreaseMinSpeed"
+                android:text="@string/settings_interval_decrease"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/t_speed_value"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.75"
+                android:gravity="center"
+                android:text="@string/settings_interval_value"
+                android:textSize="36sp" />
+
+            <Button
+                android:id="@+id/b_speed_increase"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bcg_frame"
+                android:onClick="increaseMinSpeed"
+                android:text="@string/settings_interval_increase"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/chk_notification_update"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="chkBoxUpdateNotifications"
+            android:text="@string/settings_showinfotonotif"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="24dp" />
+
+        <TextView
+            android:id="@+id/credits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/credits" />
+    </LinearLayout>
+</ScrollView>
