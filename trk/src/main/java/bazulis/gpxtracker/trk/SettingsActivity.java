@@ -13,7 +13,6 @@ public class SettingsActivity extends Activity {
     public static final String SETTINGS_REFRESH_INTERVAL = "refresh_interval";
     public static final String SETTINGS_MINIMUM_SPEED = "minimum_speed";
     public static final String SETTINGS_UPDATE_NOTIFICATION_BAR = "notification_bar_update";
-    public static final String IS_SERVICE_RUNNING = "is_service_running";
 
     private static int REFRESH_INTERVAL;
     private static int MINIMUM_SPEED;
