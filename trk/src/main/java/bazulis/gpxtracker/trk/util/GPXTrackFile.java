@@ -1,7 +1,5 @@
 package bazulis.gpxtracker.trk.util;
 
-import android.os.Environment;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -24,12 +22,11 @@ import bazulis.gpxtracker.trk.GPXDetails;
  * Created by bazulis on 14.8.13.
  * GPX failo objektas su pagrindinem funkcijom.
  */
-public class GPXFile {
-    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/gpx/";
-    public final List<Float> lats = new ArrayList<Float>();
-    public final List<Float> lons = new ArrayList<Float>();
-    public final List<Float> eles = new ArrayList<Float>();
-    private final List<String> times = new ArrayList<String>();
+public class GPXTrackFile {
+    public final List<Float> lats = new ArrayList<>();
+    public final List<Float> lons = new ArrayList<>();
+    public final List<Float> eles = new ArrayList<>();
+    private final List<String> times = new ArrayList<>();
     private final String filename;
 
     public double distance;
@@ -39,7 +36,7 @@ public class GPXFile {
     private final SimpleDateFormat dformatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private final SimpleDateFormat fformatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
-    public GPXFile(String filename, boolean resumeFile) {
+    public GPXTrackFile(String filename, boolean resumeFile) {
         dformatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.filename = filename;
         checkFolder();
@@ -50,14 +47,14 @@ public class GPXFile {
         }
     }
 
-    public GPXFile() {
+    public GPXTrackFile() {
         dformatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.filename = fformatter.format(new Date()) + ".gpx";
         newGPX(filename);
     }
 
     private void checkFolder() {
-        File gpxFolder = new File(path);
+        File gpxFolder = new File(Config.GPX_PATH);
         if (!gpxFolder.mkdir() && !gpxFolder.exists()) {
             System.out.println("Can't create a gpx folder!");
         }
@@ -67,7 +64,7 @@ public class GPXFile {
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xpp = factory.newPullParser();
-            xpp.setInput(new InputStreamReader(new FileInputStream(path + filename)));
+            xpp.setInput(new InputStreamReader(new FileInputStream(Config.GPX_PATH + filename)));
             int eventType = xpp.getEventType();
             float lat, lon, ele;
             String time;
@@ -96,9 +93,7 @@ public class GPXFile {
                 }
                 eventType = xpp.next();
             }
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -123,7 +118,7 @@ public class GPXFile {
 
     private void newGPX(String filename) {
         try {
-            File file = new File(path + filename);
+            File file = new File(Config.GPX_PATH + filename);
             outputStream = new FileOutputStream(file);
             String startTag = "<?xml version='1.0' standalone='yes' ?>\n<gpx>\n <metadata>\n  <time>"+dformatter.format(new Date())+"</time>\n </metadata>\n  <trk>\n    <trkseg>\n";
             outputStream.write(startTag.getBytes());

@@ -94,6 +94,10 @@
                     android:textSize="20sp"
                     android:background="@drawable/bcg_frame" />
             </LinearLayout>
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigation_container"/>
 
 
         </LinearLayout>

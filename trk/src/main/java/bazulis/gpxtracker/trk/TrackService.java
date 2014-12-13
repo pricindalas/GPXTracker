@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
-import bazulis.gpxtracker.trk.util.BRActions;
+import bazulis.gpxtracker.trk.util.Config;
 import bazulis.gpxtracker.trk.util.GPSListener;
-import bazulis.gpxtracker.trk.util.GPXFile;
+import bazulis.gpxtracker.trk.util.GPXTrackFile;
 
 public class TrackService extends Service {
 
@@ -41,7 +41,7 @@ public class TrackService extends Service {
     private NotificationManager nmanager;
     private LocationListener locationListener;
     private LocationManager locationManager;
-    public GPXFile gpx;
+    public GPXTrackFile gpx;
 
     public TrackService() {
     }
@@ -52,11 +52,11 @@ public class TrackService extends Service {
         String filename = intent.getStringExtra("filename");
         if (filename != null) {
             Toast.makeText(getApplicationContext(), intent.getStringExtra("filename"), Toast.LENGTH_SHORT).show();
-            gpx = new GPXFile(intent.getStringExtra("filename"), true);
+            gpx = new GPXTrackFile(intent.getStringExtra("filename"), true);
             gpx.analyzeGPX();
             locationListener = new GPSListener(this, getMinimumSpeed(), gpx.duration, gpx.distance, gpx.startTime, gpx.lastTime);
         } else {
-            gpx = new GPXFile();
+            gpx = new GPXTrackFile();
             locationListener = new GPSListener(this, getMinimumSpeed());
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, getRefreshInterval(), 0, locationListener);
@@ -84,7 +84,7 @@ public class TrackService extends Service {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
-        filter.addAction(BRActions.SERVICE_RECEIVER);
+        filter.addAction(Config.SERVICE_RECEIVER);
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -96,7 +96,7 @@ public class TrackService extends Service {
                 boolean data = intent.getBooleanExtra("getdata", false);
                 if (data) {
                     Intent broadcast = new Intent();
-                    broadcast.setAction(BRActions.MAIN_RECEIVER);
+                    broadcast.setAction(Config.MAIN_RECEIVER);
                     broadcast.putExtra("duration", duration);
                     broadcast.putExtra("distance", distance);
                     broadcast.putExtra("speed", speed);

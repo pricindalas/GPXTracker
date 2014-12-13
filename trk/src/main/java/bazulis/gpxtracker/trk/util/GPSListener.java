@@ -46,6 +46,7 @@ public class GPSListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        NavigationView.currentLocation = location;
         service.gpsStatus = 2;
         long segTime = System.currentTimeMillis()-prevTime;
         prevTime = System.currentTimeMillis();

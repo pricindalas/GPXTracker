@@ -47,16 +47,26 @@ public class RecordList extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), GPXDetails.class);
-                intent.putExtra("filename", files.get(i).getName());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivityForResult(intent, 0);
+                Intent req = getIntent();
+                int requestCode = req.getIntExtra("requestCode", 0);
+                if (requestCode == 0) {
+                    Intent intent = new Intent(getApplicationContext(), GPXDetails.class);
+                    intent.putExtra("filename", files.get(i).getName());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivityForResult(intent, 0);
+                }
+                if (requestCode == 1) {
+                    Intent result = new Intent();
+                    result.putExtra("filename", files.get(i).getAbsolutePath());
+                    setResult(Activity.RESULT_OK, result);
+                    finish();
+                }
             }
         });
     }
 
     private List<File> readFiles() {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         String adr = Environment.getExternalStorageDirectory().getPath() + "/gpx";
         File file = new File(adr);
         if (!file.exists()) {

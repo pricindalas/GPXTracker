@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import bazulis.gpxtracker.trk.util.GPXFile;
+import bazulis.gpxtracker.trk.util.GPXTrackFile;
 import bazulis.gpxtracker.trk.util.MapView;
 
 public class GPXDetails extends Activity {
@@ -63,7 +63,7 @@ public class GPXDetails extends Activity {
         int w = size.x;
         map.setLayoutParams(new LinearLayout.LayoutParams(w, w));
 
-        GPXFile gpx = new GPXFile(filename, false);
+        GPXTrackFile gpx = new GPXTrackFile(filename, false);
         if (!gpx.isEmptyFile()) {
             gpx.analyzeGPX(this);
             map.setup(gpx.lats, gpx.lons, gpx.eles);

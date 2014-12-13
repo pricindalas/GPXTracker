@@ -2,13 +2,15 @@ package bazulis.gpxtracker.trk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.content.Context;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +19,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import bazulis.gpxtracker.trk.util.BRActions;
+import bazulis.gpxtracker.trk.util.Config;
+import bazulis.gpxtracker.trk.util.GPXRouteFile;
 
 
 public class MainActivity extends Activity {
@@ -35,6 +39,8 @@ public class MainActivity extends Activity {
     private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status;
     private ImageView ic_gps_status;
     private Button b_start, b_stop;
+
+    private NavigationFragment navFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +64,7 @@ public class MainActivity extends Activity {
         b_stop.setEnabled(false);
 
         IntentFilter filter = new IntentFilter();
-        filter.addAction(BRActions.MAIN_RECEIVER);
+        filter.addAction(Config.MAIN_RECEIVER);
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -108,7 +114,15 @@ public class MainActivity extends Activity {
         if (id == R.id.action_recordList) {
             Intent intent = new Intent(this, RecordList.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("requestCode", 0);
             startActivityForResult(intent, 0);
+            return true;
+        }
+        if (id == R.id.action_follow_route) {
+            Intent intent = new Intent(this, RecordList.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("requestCode", 1);
+            startActivityForResult(intent, 1);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -145,6 +159,15 @@ public class MainActivity extends Activity {
             } else {
                 Toast.makeText(this, getString(R.string.intent_resumeFileFail), Toast.LENGTH_SHORT).show();
             }
+        }
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            navFragment = new NavigationFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.navigation_container, navFragment);
+            ft.commit();
+            GPXRouteFile route = new GPXRouteFile(new File(data.getStringExtra("filename")));
+            navFragment.setPoints(route.getPoints());
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -184,12 +207,19 @@ public class MainActivity extends Activity {
 
     private void stopService() {
         Intent stopIntent = new Intent();
-        stopIntent.setAction(BRActions.SERVICE_RECEIVER);
+        stopIntent.setAction(Config.SERVICE_RECEIVER);
         stopIntent.putExtra("stop", true);
         sendBroadcast(stopIntent);
         t_gps_status.setText(getString(R.string.gps_status));
         t_gps_status.setTextColor(Color.GRAY);
         ic_gps_status.setImageResource(R.drawable.ic_gps_idle);
+    }
+
+    public void closeNavigation() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.remove(navFragment);
+        ft.commit();
     }
 
     private class UITicker extends Thread {
@@ -200,7 +230,7 @@ public class MainActivity extends Activity {
             while (running) {
                 try {
                     Intent request = new Intent();
-                    request.setAction(BRActions.SERVICE_RECEIVER);
+                    request.setAction(Config.SERVICE_RECEIVER);
                     request.putExtra("getdata", true);
                     sendBroadcast(request);
                     Thread.sleep(1000);

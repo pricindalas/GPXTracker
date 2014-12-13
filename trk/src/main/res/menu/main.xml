@@ -9,4 +9,8 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_follow_route"
+        android:title="Sekti marsruta"
+        android:icon="@drawable/ic_action_follow_route"
+        android:showAsAction="ifRoom"/>
 </menu>

@@ -57,6 +57,7 @@
     <string name="t_deltaheight">&#916;H:</string>
     <string name="t_maxheight">Maks. H:</string>
     <string name="t_minheight">Min. H:</string>
-    <string name="credits">These great colored icons are provided by www.icons8.com</string>
+    <string name="credits">Programos ikonėlės panaudotos iš www.icons8.com</string>
+    <string name="fragment_navigation_b_close">UŽDARYTI ŽEMĖLAPĮ</string>
 
 </resources>
