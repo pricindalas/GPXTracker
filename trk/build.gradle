@@ -2,12 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'BAZE'
-            keyPassword 'rokasp'
-            storeFile file('/home/bazulis/Android/keyStore/bazulis-R.jks')
-            storePassword 'rokasp'
-        }
     }
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
