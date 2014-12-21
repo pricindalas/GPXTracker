@@ -34,7 +34,6 @@ public class TrackService extends Service {
     private Notification.Builder nbuilder;
     private BroadcastReceiver receiver;
     private BluetoothGatt mBluetoothGatt;
-    private BluetoothGattCallback mGattCallback;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///Trackerio duomenys, skirti interfeisui
@@ -70,7 +69,7 @@ public class TrackService extends Service {
                 isHrmEnabled = false;
                 Toast.makeText(getApplicationContext(), getString(R.string.service_enable_bt), Toast.LENGTH_LONG).show();
             } else {
-                mGattCallback = new BluetoothGattCallback() {
+                BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
                     @Override
                     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
                         if (newState == BluetoothGatt.STATE_CONNECTED) gatt.discoverServices();
@@ -100,9 +99,9 @@ public class TrackService extends Service {
                         heartrate = characteristic.getIntValue(format, 1);
                     }
                 };
+                BluetoothDevice targetDevice = mBluetoothAdapter.getRemoteDevice(getHRmonitorMAC());
+                mBluetoothGatt = targetDevice.connectGatt(getApplicationContext(), true, mGattCallback);
             }
-            BluetoothDevice targetDevice = mBluetoothAdapter.getRemoteDevice(getHRmonitorMAC());
-            mBluetoothGatt = targetDevice.connectGatt(getApplicationContext(), true, mGattCallback);
         }
         if (filename != null) {
             Toast.makeText(getApplicationContext(), intent.getStringExtra("filename"), Toast.LENGTH_SHORT).show();
