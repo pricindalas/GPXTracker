@@ -17,6 +17,7 @@ public class GPSListener implements LocationListener {
     private final int minimumSpeed;
     private double speed;
     private double avspeed;
+    private boolean isHrmEnabled;
 
     private long totalTime;
     private long prevTime;
@@ -31,6 +32,7 @@ public class GPSListener implements LocationListener {
         prevTime = startTime;
         totalTime = 0;
         duration = totalTime;
+        isHrmEnabled = service.isHrmEnabled;
     }
     public GPSListener(TrackService service, int minimumSpeed, long totalTime, double distance, long startTime, long prevTime) {
         this.service = service;
@@ -41,6 +43,7 @@ public class GPSListener implements LocationListener {
         this.prevTime = prevTime;
         avspeed = (distance/(totalTime/1000))*3.6;
         duration = totalTime;
+        isHrmEnabled = service.isHrmEnabled;
         this.service.updateLocation(duration, distance / 1000, speed, avspeed);
     }
 
@@ -58,7 +61,11 @@ public class GPSListener implements LocationListener {
             avspeed = (distance/(totalTime/1000))*3.6;
             duration = totalTime;
             service.updateLocation(duration, distance / 1000, speed, avspeed);
-            service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime);
+            if (isHrmEnabled) {
+                service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime, service.getHeartrate());
+            } else {
+                service.gpx.addSegment(location.getLatitude(), location.getLongitude(), location.getAltitude(), startTime+totalTime);
+            }
         }
     }
 

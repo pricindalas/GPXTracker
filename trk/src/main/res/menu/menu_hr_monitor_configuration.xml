@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="bazulis.gpxtracker.trk.HrMonitorConfiguration">
+    <item android:id="@+id/action_scan_hrm" android:title="@string/action_scan_hrm" android:showAsAction="ifRoom"/>
+</menu>

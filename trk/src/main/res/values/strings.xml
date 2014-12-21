@@ -18,9 +18,9 @@
     <string name="b_stop">STOP</string>
     <string name="b_start">START</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="settings_interval_decrease"><![CDATA[<<]]></string>
+    <string name="settings_interval_decrease" translatable="false"><![CDATA[<<]]></string>
     <string name="settings_interval_value">DEFAULT</string>
-    <string name="settings_interval_increase"><![CDATA[>>]]></string>
+    <string name="settings_interval_increase" translatable="false"><![CDATA[>>]]></string>
     <string name="settings_showinfotonotif">Show track data in notification bar</string>
     <string name="t_interval_title">Location update interval:</string>
     <string name="t_speed_title">Minimum speed for track recording:</string>
@@ -46,7 +46,7 @@
     <string name="service_waitinggps">Waiting for GPS…</string>
     <string name="t_maxspeed">Max. speed:</string>
     <string name="zmaxspeed">0.00 km/h</string>
-    <string name="gpx_no_location">\?\?\?</string>
+    <string name="gpx_no_location" translatable="false">\?\?\?</string>
     <string name="action_resumeTracking">Resume tracking</string>
     <string name="intent_resumeFileOK">Resuming</string>
     <string name="intent_resumeFileFail">Stop the tracker first!</string>
@@ -56,8 +56,21 @@
     <string name="t_uphill">Uphill:</string>
     <string name="t_maxheight">Max. height:</string>
     <string name="t_minheight">Min. height:</string>
-    <string name="t_deltaheight">&#916;height:</string>
+    <string name="t_deltaheight">Δheight:</string>
     <string name="credits">These great colored icons are provided by www.icons8.com</string>
     <string name="fragment_navigation_b_close">CLOSE THE MAP</string>
+    <string name="title_activity_hr_monitor_configuration">HR Monitor Config</string>
+    <string name="zbpm">0 bpm</string>
+    <string name="t_maxbpm">Max. HR:</string>
+    <string name="t_avbpm">Avg. HR:</string>
+    <string name="t_bpm"> bpm</string>
+    <string name="t_current_hrm">Current device:</string>
+    <string name="action_scan_hrm">Scan</string>
+    <string name="b_confirm_hrm">Confirm</string>
+    <string name="b_configure_hrm">Configure…</string>
+    <string name="t_settings_hrm">Heart rate monitor configuration:</string>
+    <string name="chk_use_hrm">Use HR monitor</string>
+    <string name="service_enable_bt">Bluetooth is disabled, starting without heart rate…</string>
+    <string name="action_follow_route_descr">Follow route</string>
 
 </resources>

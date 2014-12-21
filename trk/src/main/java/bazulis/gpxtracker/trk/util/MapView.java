@@ -33,8 +33,8 @@ public class MapView extends View {
         super(context, attrs);
 
         this.context = context;
-        lats = new ArrayList<Float>();
-        lons = new ArrayList<Float>();
+        lats = new ArrayList<>();
+        lons = new ArrayList<>();
 
         mapLine = new Paint();
         mapLine.setColor(Color.rgb(255, 0, 0));

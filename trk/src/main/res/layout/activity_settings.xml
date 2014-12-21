@@ -13,7 +13,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/t_interval_title"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:padding="5dp"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
@@ -53,6 +54,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/t_speed_title"
+            android:padding="5dp"
             android:textSize="26sp" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -95,16 +97,38 @@
             android:layout_height="wrap_content"
             android:onClick="chkBoxUpdateNotifications"
             android:text="@string/settings_showinfotonotif"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="10dp"/>
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="24dp" />
-
         <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:padding="5dp"
+            android:text="@string/t_settings_hrm"/>
+        <CheckBox
+            android:id="@+id/chk_enable_hrm"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/chk_use_hrm"
+            android:padding="10dp"
+            android:onClick="chkBoxEnableHRM" />
+        <Button
+            android:id="@+id/b_hrm_config"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bcg_frame"
+            android:text="@string/b_configure_hrm"/>
+        <TextView
+            android:paddingTop="20dp"
             android:id="@+id/credits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/credits" />
+            android:text="@string/credits"
+            android:layout_gravity="end" />
     </LinearLayout>
 </ScrollView>

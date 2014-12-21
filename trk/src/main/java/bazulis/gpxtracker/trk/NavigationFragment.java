@@ -20,8 +20,8 @@ import bazulis.gpxtracker.trk.util.NavigationView;
  */
 public class NavigationFragment extends Fragment {
     private NavigationView navMap;
-
     private List<Location> points;
+    private int mapRefreshInterval;
 
     @Override
     public void onDetach() {
@@ -31,6 +31,7 @@ public class NavigationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mapRefreshInterval = getActivity().getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getInt(SettingsActivity.SETTINGS_REFRESH_INTERVAL, 2) * 1000;
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
         navMap = (NavigationView) view.findViewById(R.id.navigation_map);
         Button closeButton = (Button) view.findViewById(R.id.b_close_navigation);
@@ -67,7 +68,7 @@ public class NavigationFragment extends Fragment {
                     }
                 });
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(mapRefreshInterval);
                 } catch (InterruptedException e) {
                     isRunning = false;
                     e.printStackTrace();

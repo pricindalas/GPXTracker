@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="bazulis.gpxtracker.trk.HrMonitorConfiguration"
+    style="@style/scheme1"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/t_current_hrm"
+        android:id="@+id/t_current_hrm"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gpx_no_location"
+        android:id="@+id/t_hrm_name"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gpx_no_location"
+        android:id="@+id/t_hrm_mac"
+        android:textSize="20sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lw_hrm"
+        android:layout_weight="1"
+        android:background="@drawable/bcg_frame" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:text="@string/b_confirm_hrm"
+        android:id="@+id/b_hrm_confirm"
+        android:layout_weight="3"
+        android:background="@drawable/bcg_frame" />
+</LinearLayout>

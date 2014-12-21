@@ -26,6 +26,7 @@ public class GPXTrackFile {
     public final List<Float> lats = new ArrayList<>();
     public final List<Float> lons = new ArrayList<>();
     public final List<Float> eles = new ArrayList<>();
+    private final List<Integer> hearts = new ArrayList<>();
     private final List<String> times = new ArrayList<>();
     private final String filename;
 
@@ -66,6 +67,7 @@ public class GPXTrackFile {
             XmlPullParser xpp = factory.newPullParser();
             xpp.setInput(new InputStreamReader(new FileInputStream(Config.GPX_PATH + filename)));
             int eventType = xpp.getEventType();
+            int heartrate;
             float lat, lon, ele;
             String time;
             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -90,6 +92,12 @@ public class GPXTrackFile {
                         eles.add(ele);
                         continue;
                     }
+                    if (xpp.getName().equals("gpxtpx:hr")) {
+                        eventType = xpp.next();
+                        heartrate = Integer.parseInt(xpp.getText());
+                        hearts.add(heartrate);
+                        continue;
+                    }
                 }
                 eventType = xpp.next();
             }
@@ -99,7 +107,7 @@ public class GPXTrackFile {
     }
 
     public void analyzeGPX(GPXDetails activity) {
-        CounterThread counter = new CounterThread(activity, lons, lats, times, eles);
+        CounterThread counter = new CounterThread(activity, lons, lats, times, eles, hearts);
         counter.start();
     }
 
@@ -120,7 +128,7 @@ public class GPXTrackFile {
         try {
             File file = new File(Config.GPX_PATH + filename);
             outputStream = new FileOutputStream(file);
-            String startTag = "<?xml version='1.0' standalone='yes' ?>\n<gpx>\n <metadata>\n  <time>"+dformatter.format(new Date())+"</time>\n </metadata>\n  <trk>\n    <trkseg>\n";
+            String startTag = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<gpx version=\"1.1\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\" xmlns:gpxx=\"http://www.garmin.com/xmlschemas/GpxExtensions/v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n <metadata>\n  <time>"+dformatter.format(new Date())+"</time>\n </metadata>\n  <trk>\n    <trkseg>\n";
             outputStream.write(startTag.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,6 +145,24 @@ public class GPXTrackFile {
 
     public void addSegment(double lat, double lon, double elevation, long time) {
         String trackTag = "      <trkpt lat=\"" + lat + "\" lon=\"" + lon + "\">\n        <ele>" + elevation + "</ele>\n        <time>" + dformatter.format(new Date(time)) + "</time>\n      </trkpt>\n";
+        try {
+            outputStream.write(trackTag.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addSegment(double lat, double lon, double elevation, long time, int heartrate) {
+        String trackTag =
+                "      <trkpt lat=\""+lat+"\" lon=\""+lon+"\">\n" +
+                "        <ele>"+elevation+"</ele>\n" +
+                "        <time>"+dformatter.format(new Date(time))+"</time>\n"+
+                "        <extensions>\n"+
+                "          <gpxtpx:TrackPointExtension>\n"+
+                "            <gpxtpx:hr>"+heartrate+"</gpxtpx:hr>\n" +
+                "          </gpxtpx:TrackPointExtension>\n" +
+                "        </extensions>\n"+
+                "      </trkpt>\n";
         try {
             outputStream.write(trackTag.getBytes());
         } catch (IOException e) {

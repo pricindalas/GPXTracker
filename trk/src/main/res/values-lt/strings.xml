@@ -14,9 +14,7 @@
     <string name="b_stop">STABDYTI</string>
     <string name="b_start">PRADĖTI</string>
     <string name="title_activity_settings">Nustatymai</string>
-    <string name="settings_interval_decrease"><![CDATA[<<]]></string>
     <string name="settings_interval_value">DEFAULT</string>
-    <string name="settings_interval_increase"><![CDATA[>>]]></string>
     <string name="settings_showinfotonotif">Rodyti sekimo informaciją pranešimų juostoje</string>
     <string name="t_interval_title">Vietos atnaujinimo intervalas:</string>
     <string name="t_speed_title">Minimalus sekimo greitis:</string>
@@ -46,7 +44,6 @@
     <string name="yes">Taip</string>
     <string name="confirm_no">Ne, tai ne…</string>
     <string name="dialog_delete">Ar tikrai norite ištrinti šį failą?</string>
-    <string name="gpx_no_location">\?\?\?</string>
     <string name="action_resumeTracking">Tęsti sekimą</string>
     <string name="intent_resumeFileFail">Pirma sustabdykite sekimą!</string>
     <string name="intent_resumeFileOK">Tęsiamas</string>
@@ -59,5 +56,18 @@
     <string name="t_minheight">Min. H:</string>
     <string name="credits">Programos ikonėlės panaudotos iš www.icons8.com</string>
     <string name="fragment_navigation_b_close">UŽDARYTI ŽEMĖLAPĮ</string>
+    <string name="title_activity_hr_monitor_configuration">ŠSD matuoklis</string>
+    <string name="zbpm">0 k./min.</string>
+    <string name="t_bpm"> k./min.</string>
+    <string name="t_avbpm">Vid. ŠSD:</string>
+    <string name="t_maxbpm">Maks. ŠSD:</string>
+    <string name="action_scan_hrm">Ieškoti</string>
+    <string name="b_confirm_hrm">Patvirtinti</string>
+    <string name="t_current_hrm">Dabartinis įrenginys:</string>
+    <string name="b_configure_hrm">Nustatyti…</string>
+    <string name="t_settings_hrm">Pulso dažnio matavimo parametrai:</string>
+    <string name="chk_use_hrm">Naudoti pulso matuoklį</string>
+    <string name="service_enable_bt">Bluetooth išjungtas, paleidžiama be ŠSD matavimo…</string>
+    <string name="action_follow_route_descr">Sekti marsruta</string>
 
 </resources>

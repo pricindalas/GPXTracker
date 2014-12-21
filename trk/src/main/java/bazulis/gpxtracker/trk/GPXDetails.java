@@ -29,6 +29,7 @@ public class GPXDetails extends Activity {
     private TextView t_distance;
     private TextView t_avspeed;
     private TextView t_maxspeed;
+    private TextView t_avheartrate, t_maxheartrate;
     private TextView t_efficiency;
     private TextView t_uphill;
     private TextView t_downhill;
@@ -51,6 +52,8 @@ public class GPXDetails extends Activity {
         t_distance = (TextView) findViewById(R.id.t_distance);
         t_duration = (TextView) findViewById(R.id.t_duration);
         t_maxspeed = (TextView) findViewById(R.id.t_maxspeed);
+        t_avheartrate = (TextView) findViewById(R.id.t_avheartrate);
+        t_maxheartrate = (TextView) findViewById(R.id.t_maxheartrate);
         t_efficiency = (TextView) findViewById(R.id.t_efficiency);
         t_uphill = (TextView) findViewById(R.id.t_uphill);
         t_downhill = (TextView) findViewById(R.id.t_downhill);
@@ -128,11 +131,13 @@ public class GPXDetails extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void updateData(double distance, long duration, double avspeed, double maxspeed, double efficiency, double uphill, double downhill, double maxheight, double minheight) {
+    public void updateData(double distance, long duration, double avspeed, double maxspeed, double efficiency, double uphill, double downhill, double maxheight, double minheight, double avheartrate, double maxheartrate) {
         t_distance.setText(new DecimalFormat("##.## km").format(distance/1000));
         t_duration.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(duration-getTZOffset())));
         t_avspeed.setText(new DecimalFormat("##.## km/h").format(avspeed));
         t_maxspeed.setText(new DecimalFormat("##.## km/h").format(maxspeed));
+        t_avheartrate.setText((int)avheartrate+getString(R.string.t_bpm));
+        t_maxheartrate.setText((int)maxheartrate+getString(R.string.t_bpm));
         t_efficiency.setText(new DecimalFormat("##.## %").format(efficiency));
         t_uphill.setText(new DecimalFormat("### m").format(uphill));
         t_downhill.setText(new DecimalFormat("### m").format(downhill));

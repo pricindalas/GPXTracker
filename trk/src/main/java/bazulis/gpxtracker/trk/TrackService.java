@@ -4,6 +4,14 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +22,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.UUID;
 
 import bazulis.gpxtracker.trk.util.Config;
 import bazulis.gpxtracker.trk.util.GPSListener;
@@ -24,6 +33,8 @@ public class TrackService extends Service {
     private static final int serviceID = 19891020;
     private Notification.Builder nbuilder;
     private BroadcastReceiver receiver;
+    private BluetoothGatt mBluetoothGatt;
+    private BluetoothGattCallback mGattCallback;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///Trackerio duomenys, skirti interfeisui
@@ -31,7 +42,9 @@ public class TrackService extends Service {
     private double speed;
     private double avspeed;
     private long duration;
+    private int heartrate;
     private boolean updateNotif;
+    public boolean isHrmEnabled;
     ///
     public int gpsStatus = 1;
     // GPS status int : 0 - gps isjungtas
@@ -50,6 +63,47 @@ public class TrackService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         makeForeground();
         String filename = intent.getStringExtra("filename");
+        if (!isHrmEnabled && !getHRmonitorMAC().equals("none")) {
+            BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            BluetoothAdapter mBluetoothAdapter = manager.getAdapter();
+            if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
+                isHrmEnabled = false;
+                Toast.makeText(getApplicationContext(), getString(R.string.service_enable_bt), Toast.LENGTH_LONG).show();
+            } else {
+                mGattCallback = new BluetoothGattCallback() {
+                    @Override
+                    public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+                        if (newState == BluetoothGatt.STATE_CONNECTED) gatt.discoverServices();
+                    }
+
+                    @Override
+                    public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+                        BluetoothGattService service = gatt.getService(UUID.fromString(Config.UUID_HR_SERVICE));
+                        BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(Config.UUID_HR_CHARACTERISTIC));
+                        BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(Config.UUID_HR_DESCRIPTOR));
+                        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                        gatt.writeDescriptor(descriptor);
+                        gatt.setCharacteristicNotification(characteristic, true);
+                    }
+
+                    @Override
+                    public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+                        int flag = characteristic.getProperties();
+                        int format;
+                        if ((flag & 0x01) != 0) {
+                            format = BluetoothGattCharacteristic.FORMAT_UINT16;
+                            //System.out.println("UINT16 formatas");
+                        } else {
+                            format = BluetoothGattCharacteristic.FORMAT_UINT8;
+                            //System.out.println("UINT8 formatas");
+                        }
+                        heartrate = characteristic.getIntValue(format, 1);
+                    }
+                };
+            }
+            BluetoothDevice targetDevice = mBluetoothAdapter.getRemoteDevice(getHRmonitorMAC());
+            mBluetoothGatt = targetDevice.connectGatt(getApplicationContext(), true, mGattCallback);
+        }
         if (filename != null) {
             Toast.makeText(getApplicationContext(), intent.getStringExtra("filename"), Toast.LENGTH_SHORT).show();
             gpx = new GPXTrackFile(intent.getStringExtra("filename"), true);
@@ -76,6 +130,7 @@ public class TrackService extends Service {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         nbuilder = new Notification.Builder(this);
         updateNotif = isNotifBarEnabled();
+        isHrmEnabled = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_ENABLE_HR_MONITOR, false);
 
         distance = 0;
         speed = 0;
@@ -102,6 +157,7 @@ public class TrackService extends Service {
                     broadcast.putExtra("speed", speed);
                     broadcast.putExtra("avspeed", avspeed);
                     broadcast.putExtra("gps", gpsStatus);
+                    broadcast.putExtra("heartrate", heartrate);
                     sendBroadcast(broadcast);
                 }
             }
@@ -110,10 +166,18 @@ public class TrackService extends Service {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
+    public int getHeartrate() {
+        return heartrate;
+    }
+
     @Override
     public void onDestroy() {
         locationManager.removeUpdates(locationListener);
         gpx.saveGPX();
+        if (mBluetoothGatt != null) {
+            mBluetoothGatt.disconnect();
+            mBluetoothGatt.close();
+        }
         stopForeground(true);
         unregisterReceiver(receiver);
         Toast.makeText(this, getString(R.string.toast_trackstopped), Toast.LENGTH_SHORT).show();
@@ -155,5 +219,9 @@ public class TrackService extends Service {
 
     boolean isNotifBarEnabled() {
         return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_UPDATE_NOTIFICATION_BAR, true);
+    }
+
+    String getHRmonitorMAC() {
+        return getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getString(SettingsActivity.SETTINGS_HRMONITOR_MAC, "none");
     }
 }

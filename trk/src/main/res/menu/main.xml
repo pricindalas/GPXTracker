@@ -10,7 +10,7 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom" />
     <item android:id="@+id/action_follow_route"
-        android:title="Sekti marsruta"
+        android:title="@string/action_follow_route_descr"
         android:icon="@drawable/ic_action_follow_route"
         android:showAsAction="ifRoom"/>
 </menu>

@@ -22,23 +22,28 @@ class CounterThread extends Thread {
     private final List<Float> lons;
     private List<Float> eles;
     private final List<String> times;
+    private List<Integer> hearts;
     private long duration;
     private double distance;
     private double avspeed;
     private double maxspeed;
+    private double avheartrate;
+    private double maxheartrate;
     private double efficiency;
     private double uphill, downhill, maxheight, minheight;
-    public CounterThread(GPXDetails activity, List<Float> lons, List<Float> lats, List<String> times, List<Float> eles) {
+    public CounterThread(GPXDetails activity, List<Float> lons, List<Float> lats, List<String> times, List<Float> eles, List<Integer> hearts) {
         this.activity = activity;
         this.lons = lons;
         this.lats = lats;
         this.eles = eles;
         this.times = times;
+        this.hearts = hearts;
         countEles = true;
         distance = 0;
         duration = 0;
         avspeed = 0;
         maxspeed = 0;
+        avheartrate = 0;
     }
     public CounterThread(List<Float> lons, List<Float> lats, List<String> times) {
         this.lons = lons;
@@ -49,6 +54,7 @@ class CounterThread extends Thread {
         duration = 0;
         avspeed = 0;
         maxspeed = 0;
+        avheartrate = 0;
     }
     @Override
     public void run() {
@@ -65,6 +71,15 @@ class CounterThread extends Thread {
             maxheight = eles.get(0);
             minheight = eles.get(0);
         }
+        ///AVG SSD///
+        long sum = 0;
+        maxheartrate = 0;
+        for (int hr : hearts) {
+            sum += hr;
+            if (hr>maxheartrate) maxheartrate = hr;
+        }
+        if (hearts.size()>0) avheartrate = sum / hearts.size();
+        /////////////
         for(int i = 0; i < lons.size()-1; i++) {
             try {
                 t1 = dformat.parse(times.get(i));
@@ -108,7 +123,7 @@ class CounterThread extends Thread {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.updateData(distance, duration, avspeed, maxspeed, efficiency, uphill, downhill, maxheight, minheight);
+                    activity.updateData(distance, duration, avspeed, maxspeed, efficiency, uphill, downhill, maxheight, minheight, avheartrate, maxheartrate);
                     activity.map.invalidate();
                 }
             });

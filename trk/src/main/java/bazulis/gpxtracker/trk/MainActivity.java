@@ -34,9 +34,10 @@ public class MainActivity extends Activity {
     private BroadcastReceiver receiver;
     private UITicker ticker;
     private boolean serviceRunning = false;
+    private boolean isHrmEnabled;
     private SimpleDateFormat durationFormat;
 
-    private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status;
+    private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status, t_heartrate;
     private ImageView ic_gps_status;
     private Button b_start, b_stop;
 
@@ -47,6 +48,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isHrmEnabled = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_ENABLE_HR_MONITOR, false);
+
         durationFormat = new SimpleDateFormat("HH:mm:ss");
         durationFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
@@ -55,7 +58,10 @@ public class MainActivity extends Activity {
         t_speed = (TextView) findViewById(R.id.t_speed);
         t_avspeed = (TextView) findViewById(R.id.t_avspeed);
         t_gps_status = (TextView) findViewById(R.id.t_gps_status);
+        t_heartrate = (TextView) findViewById(R.id.t_heartrate);
         ic_gps_status = (ImageView) findViewById(R.id.ic_gps_status);
+
+        if (!isHrmEnabled) t_heartrate.setVisibility(View.GONE);
 
         b_start = (Button) findViewById(R.id.b_start);
         b_stop = (Button) findViewById(R.id.b_stop);
@@ -75,6 +81,7 @@ public class MainActivity extends Activity {
                 t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
                 t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
                 t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
+                if (isHrmEnabled) t_heartrate.setText(intent.getIntExtra("heartrate", 0)+getString(R.string.t_bpm));
                 switch (intent.getIntExtra("gps", 0)) {
                     case 0 : {
                         t_gps_status.setText(getString(R.string.gps_isdisabled));
