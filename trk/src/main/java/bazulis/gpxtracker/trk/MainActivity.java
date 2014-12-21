@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
         t_heartrate = (TextView) findViewById(R.id.t_heartrate);
         ic_gps_status = (ImageView) findViewById(R.id.ic_gps_status);
 
-        if (!isHrmEnabled) t_heartrate.setVisibility(View.GONE);
 
         b_start = (Button) findViewById(R.id.b_start);
         b_stop = (Button) findViewById(R.id.b_stop);
@@ -139,6 +138,7 @@ public class MainActivity extends Activity {
     protected void onStart() {
         ticker = new UITicker();
         ticker.start();
+        if (!isHrmEnabled) t_heartrate.setVisibility(View.GONE); else t_heartrate.setVisibility(View.VISIBLE);
         super.onStart();
     }
 
