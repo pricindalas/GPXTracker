@@ -231,6 +231,7 @@ public class MainActivity extends Activity {
 
     private class UITicker extends Thread {
         public boolean running = true;
+        private int refreshInterval = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getInt(SettingsActivity.SETTINGS_REFRESH_INTERVAL, 2) * 1000;
         @Override
         public void run() {
             super.run();
@@ -240,7 +241,7 @@ public class MainActivity extends Activity {
                     request.setAction(Config.SERVICE_RECEIVER);
                     request.putExtra("getdata", true);
                     sendBroadcast(request);
-                    Thread.sleep(1000);
+                    Thread.sleep(refreshInterval);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
