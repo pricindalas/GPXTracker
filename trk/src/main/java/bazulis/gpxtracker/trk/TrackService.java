@@ -63,7 +63,7 @@ public class TrackService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         makeForeground();
         String filename = intent.getStringExtra("filename");
-        if (!isHrmEnabled && !getHRmonitorMAC().equals("none")) {
+        if (isHrmEnabled && !getHRmonitorMAC().equals("none")) {
             BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter mBluetoothAdapter = manager.getAdapter();
             if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
