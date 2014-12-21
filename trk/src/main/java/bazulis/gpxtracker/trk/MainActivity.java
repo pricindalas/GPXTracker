@@ -48,8 +48,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isHrmEnabled = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_ENABLE_HR_MONITOR, false);
-
         durationFormat = new SimpleDateFormat("HH:mm:ss");
         durationFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
@@ -138,7 +136,12 @@ public class MainActivity extends Activity {
     protected void onStart() {
         ticker = new UITicker();
         ticker.start();
-        if (!isHrmEnabled) t_heartrate.setVisibility(View.GONE); else t_heartrate.setVisibility(View.VISIBLE);
+        isHrmEnabled = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_ENABLE_HR_MONITOR, false);
+        if (!isHrmEnabled) {
+            t_heartrate.setVisibility(View.GONE);
+        } else {
+            t_heartrate.setVisibility(View.VISIBLE);
+        }
         super.onStart();
     }
 
