@@ -40,6 +40,8 @@ public class TrackService extends Service {
     private double distance;
     private double speed;
     private double avspeed;
+    private double pace;
+    private double avpace;
     private long duration;
     private int heartrate;
     private boolean updateNotif;
@@ -61,7 +63,7 @@ public class TrackService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         makeForeground();
-        String filename = intent.getStringExtra("filename");
+
         if (isHrmEnabled && !getHRmonitorMAC().equals("none")) {
             BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter mBluetoothAdapter = manager.getAdapter();
@@ -103,6 +105,8 @@ public class TrackService extends Service {
                 mBluetoothGatt = targetDevice.connectGatt(getApplicationContext(), true, mGattCallback);
             }
         }
+
+        String filename = intent.getStringExtra("filename");
         if (filename != null) {
             Toast.makeText(getApplicationContext(), intent.getStringExtra("filename"), Toast.LENGTH_SHORT).show();
             gpx = new GPXTrackFile(intent.getStringExtra("filename"), true);
@@ -112,6 +116,7 @@ public class TrackService extends Service {
             gpx = new GPXTrackFile();
             locationListener = new GPSListener(this, getMinimumSpeed());
         }
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, getRefreshInterval(), 0, locationListener);
 
         return super.onStartCommand(intent, flags, startId);
@@ -138,7 +143,7 @@ public class TrackService extends Service {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
-        filter.addAction(Config.SERVICE_RECEIVER);
+        filter.addAction(Config.TRACK_SERVICE_RECEIVER);
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -155,6 +160,8 @@ public class TrackService extends Service {
                     broadcast.putExtra("distance", distance);
                     broadcast.putExtra("speed", speed);
                     broadcast.putExtra("avspeed", avspeed);
+                    broadcast.putExtra("pace", pace);
+                    broadcast.putExtra("avpace", avpace);
                     broadcast.putExtra("gps", gpsStatus);
                     broadcast.putExtra("heartrate", heartrate);
                     sendBroadcast(broadcast);
@@ -200,6 +207,8 @@ public class TrackService extends Service {
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;
+        this.pace = 60 / speed;
+        this.avpace = 60 / avspeed;
 
         if (updateNotif) {
             nbuilder.setContentText("T: " + duration + "; " + new DecimalFormat("##.# km").format(distance) + "; AVS" + new DecimalFormat("##.# km/h").format(avspeed));

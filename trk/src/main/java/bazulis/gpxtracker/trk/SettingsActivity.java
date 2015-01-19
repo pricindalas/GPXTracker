@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,16 +19,27 @@ public class SettingsActivity extends Activity {
     public static final String SETTINGS_ENABLE_HR_MONITOR = "hrm_enable";
     public static final String SETTINGS_HRMONITOR_MAC = "heart_rate_monitor_mac";
     public static final String SETTINGS_HRMONITOR_NAME = "heart_rate_monitor_name";
+    public static final String SETTINGS_DURATION_ENABLED = "duration_enabled";
+    public static final String SETTINGS_DISTANCE_ENABLED = "distance_enabled";
+    public static final String SETTINGS_SPEED_ENABLED = "speed_enabled";
+    public static final String SETTINGS_AVSPEED_ENABLED = "avspeed_enabled";
+    public static final String SETTINGS_PACE_ENABLED = "pace_enabled";
+    public static final String SETTINGS_AVPACE_ENABLED = "avpace_enabled";
 
     private static int REFRESH_INTERVAL;
     private static int MINIMUM_SPEED;
     private static boolean UPDATE_NOTIFICATION_BAR;
     private static boolean ENABLE_HR_MONITOR;
+    private static boolean ENABLE_DURATION;
+    private static boolean ENABLE_DISTANCE;
+    private static boolean ENABLE_SPEED;
+    private static boolean ENABLE_AVSPEED;
+    private static boolean ENABLE_PACE;
+    private static boolean ENABLE_AVPACE;
 
     private String HRM_NAME, HRM_MAC;
 
     private TextView interval, speed;
-    private CheckBox update_status_bar, chk_enable_hrm;
     private Button hrmConfigButton;
 
     @Override
@@ -36,17 +48,84 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
         interval = (TextView) findViewById(R.id.t_interval_value);
         speed = (TextView) findViewById(R.id.t_speed_value);
-        update_status_bar = (CheckBox) findViewById(R.id.chk_notification_update);
-        chk_enable_hrm = (CheckBox) findViewById(R.id.chk_enable_hrm);
+        CheckBox update_status_bar = (CheckBox) findViewById(R.id.chk_notification_update);
+        CheckBox chk_enable_hrm = (CheckBox) findViewById(R.id.chk_enable_hrm);
+        CheckBox durationCheck = (CheckBox) findViewById(R.id.chk_duration);
+        CheckBox distanceCheck = (CheckBox) findViewById(R.id.chk_distance);
+        CheckBox speedCheck = (CheckBox) findViewById(R.id.chk_speed);
+        CheckBox avspeedCheck = (CheckBox) findViewById(R.id.chk_avspeed);
+        CheckBox paceCheck = (CheckBox) findViewById(R.id.chk_pace);
+        CheckBox avpaceCheck = (CheckBox) findViewById(R.id.chk_avpace);
         SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
         REFRESH_INTERVAL = settings.getInt(SETTINGS_REFRESH_INTERVAL, 2);
         MINIMUM_SPEED = settings.getInt(SETTINGS_MINIMUM_SPEED, 2);
         UPDATE_NOTIFICATION_BAR = settings.getBoolean(SETTINGS_UPDATE_NOTIFICATION_BAR, true);
         ENABLE_HR_MONITOR = settings.getBoolean(SETTINGS_ENABLE_HR_MONITOR, false);
+        ENABLE_DURATION = settings.getBoolean(SETTINGS_DURATION_ENABLED, true);
+        ENABLE_DISTANCE = settings.getBoolean(SETTINGS_DISTANCE_ENABLED, true);
+        ENABLE_SPEED = settings.getBoolean(SETTINGS_SPEED_ENABLED, true);
+        ENABLE_AVSPEED = settings.getBoolean(SETTINGS_AVSPEED_ENABLED, true);
+        ENABLE_PACE = settings.getBoolean(SETTINGS_PACE_ENABLED, true);
+        ENABLE_AVPACE = settings.getBoolean(SETTINGS_AVPACE_ENABLED, true);
         interval.setText(REFRESH_INTERVAL+" s");
         speed.setText(MINIMUM_SPEED+" km/h");
         update_status_bar.setChecked(UPDATE_NOTIFICATION_BAR);
+        update_status_bar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UPDATE_NOTIFICATION_BAR = isChecked;
+            }
+        });
         chk_enable_hrm.setChecked(ENABLE_HR_MONITOR);
+        chk_enable_hrm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_HR_MONITOR = isChecked;
+                hrmConfigButton.setEnabled(isChecked);
+            }
+        });
+        durationCheck.setChecked(ENABLE_DURATION);
+        durationCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_DURATION = isChecked;
+            }
+        });
+        distanceCheck.setChecked(ENABLE_DISTANCE);
+        distanceCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_DISTANCE = isChecked;
+            }
+        });
+        speedCheck.setChecked(ENABLE_SPEED);
+        speedCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_SPEED = isChecked;
+            }
+        });
+        avspeedCheck.setChecked(ENABLE_AVSPEED);
+        avspeedCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_AVSPEED = isChecked;
+            }
+        });
+        paceCheck.setChecked(ENABLE_PACE);
+        paceCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_PACE = isChecked;
+            }
+        });
+        avpaceCheck.setChecked(ENABLE_AVPACE);
+        avpaceCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_AVPACE = isChecked;
+            }
+        });
         hrmConfigButton = (Button) findViewById(R.id.b_hrm_config);
         hrmConfigButton.setEnabled(ENABLE_HR_MONITOR);
         hrmConfigButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +155,12 @@ public class SettingsActivity extends Activity {
         editor.putInt(SETTINGS_MINIMUM_SPEED, MINIMUM_SPEED);
         editor.putBoolean(SETTINGS_UPDATE_NOTIFICATION_BAR, UPDATE_NOTIFICATION_BAR);
         editor.putBoolean(SETTINGS_ENABLE_HR_MONITOR, ENABLE_HR_MONITOR);
+        editor.putBoolean(SETTINGS_DURATION_ENABLED, ENABLE_DURATION);
+        editor.putBoolean(SETTINGS_DISTANCE_ENABLED, ENABLE_DISTANCE);
+        editor.putBoolean(SETTINGS_SPEED_ENABLED, ENABLE_SPEED);
+        editor.putBoolean(SETTINGS_AVSPEED_ENABLED, ENABLE_AVSPEED);
+        editor.putBoolean(SETTINGS_PACE_ENABLED, ENABLE_PACE);
+        editor.putBoolean(SETTINGS_AVPACE_ENABLED, ENABLE_AVPACE);
         if (HRM_NAME!=null && HRM_MAC!=null) {
             editor.putString(SETTINGS_HRMONITOR_NAME, HRM_NAME);
             editor.putString(SETTINGS_HRMONITOR_MAC, HRM_MAC);
@@ -107,12 +192,5 @@ public class SettingsActivity extends Activity {
     public void increaseMinSpeed(View view) {
         MINIMUM_SPEED++;
         speed.setText(MINIMUM_SPEED+" km/h");
-    }
-    public void chkBoxUpdateNotifications(View view) {
-        UPDATE_NOTIFICATION_BAR = update_status_bar.isChecked();
-    }
-    public void chkBoxEnableHRM(View view) {
-        ENABLE_HR_MONITOR = chk_enable_hrm.isChecked();
-        hrmConfigButton.setEnabled(ENABLE_HR_MONITOR);
     }
 }

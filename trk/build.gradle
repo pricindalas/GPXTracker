@@ -1,23 +1,19 @@
 apply plugin: 'com.android.application'
-
 android {
-    signingConfigs {
-    }
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
     defaultConfig {
         minSdkVersion 18
+        applicationId "bazulis.gpxtracker.trk"
         targetSdkVersion 21
-        versionCode 46
-        versionName '1.8.1'
+        versionCode 47
+        versionName '1.8.2'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
-    }
-    productFlavors {
     }
 }
 

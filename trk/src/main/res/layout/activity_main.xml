@@ -64,6 +64,25 @@
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_avspeed"
                 android:drawablePadding="16dp" />
+
+            <TextView
+                android:id="@+id/t_pace"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="0.00 min./km"
+                android:textSize="40sp"
+                android:drawableStart="@drawable/ic_speed"
+                android:drawablePadding="16dp" />
+
+            <TextView
+                android:id="@+id/t_avpace"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="0.00 min./km"
+                android:textSize="40sp"
+                android:drawableStart="@drawable/ic_avspeed"
+                android:drawablePadding="16dp" />
+
             <TextView
                 android:id="@+id/t_heartrate"
                 android:layout_width="fill_parent"

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
     private boolean isHrmEnabled;
     private SimpleDateFormat durationFormat;
 
-    private TextView t_distance, t_duration, t_speed, t_avspeed, t_gps_status, t_heartrate;
+    private TextView t_distance, t_duration, t_speed, t_avspeed, t_pace, t_avpace, t_gps_status, t_heartrate;
     private ImageView ic_gps_status;
     private Button b_start, b_stop;
 
@@ -55,9 +56,19 @@ public class MainActivity extends Activity {
         t_duration = (TextView) findViewById(R.id.t_duration);
         t_speed = (TextView) findViewById(R.id.t_speed);
         t_avspeed = (TextView) findViewById(R.id.t_avspeed);
+        t_pace = (TextView) findViewById(R.id.t_pace);
+        t_avpace = (TextView) findViewById(R.id.t_avpace);
         t_gps_status = (TextView) findViewById(R.id.t_gps_status);
         t_heartrate = (TextView) findViewById(R.id.t_heartrate);
         ic_gps_status = (ImageView) findViewById(R.id.ic_gps_status);
+
+        SharedPreferences preferences = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_DISTANCE_ENABLED, true)) t_distance.setVisibility(View.GONE);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_DURATION_ENABLED, true)) t_duration.setVisibility(View.GONE);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_SPEED_ENABLED, true)) t_speed.setVisibility(View.GONE);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVSPEED_ENABLED, true)) t_avspeed.setVisibility(View.GONE);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_PACE_ENABLED, true)) t_pace.setVisibility(View.GONE);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVPACE_ENABLED, true)) t_avpace.setVisibility(View.GONE);
 
 
         b_start = (Button) findViewById(R.id.b_start);
@@ -78,6 +89,8 @@ public class MainActivity extends Activity {
                 t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
                 t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
                 t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
+                t_pace.setText(new DecimalFormat("##.## min/km").format(intent.getDoubleExtra("pace", 0)));
+                t_avpace.setText(new DecimalFormat("##.## min/km").format(intent.getDoubleExtra("avpace", 0)));
                 if (isHrmEnabled) t_heartrate.setText(intent.getIntExtra("heartrate", 0)+getString(R.string.t_bpm));
                 switch (intent.getIntExtra("gps", 0)) {
                     case 0 : {
@@ -217,7 +230,7 @@ public class MainActivity extends Activity {
 
     private void stopService() {
         Intent stopIntent = new Intent();
-        stopIntent.setAction(Config.SERVICE_RECEIVER);
+        stopIntent.setAction(Config.TRACK_SERVICE_RECEIVER);
         stopIntent.putExtra("stop", true);
         sendBroadcast(stopIntent);
         t_gps_status.setText(getString(R.string.gps_status));
@@ -241,7 +254,7 @@ public class MainActivity extends Activity {
             while (running) {
                 try {
                     Intent request = new Intent();
-                    request.setAction(Config.SERVICE_RECEIVER);
+                    request.setAction(Config.TRACK_SERVICE_RECEIVER);
                     request.putExtra("getdata", true);
                     sendBroadcast(request);
                     Thread.sleep(refreshInterval);

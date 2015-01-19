@@ -72,5 +72,11 @@
     <string name="chk_use_hrm">Use HR monitor</string>
     <string name="service_enable_bt">Bluetooth is disabled, starting without heart rate…</string>
     <string name="action_follow_route_descr">Follow route</string>
+    <string name="chk_duration">Laikas</string>
+    <string name="chk_distance">Atstumas</string>
+    <string name="chk_speed">Greitis</string>
+    <string name="chk_avspeed">Vidutinis greitis</string>
+    <string name="chk_pace">Tempas</string>
+    <string name="chk_avpace">Vidutinis tempas</string>
 
 </resources>

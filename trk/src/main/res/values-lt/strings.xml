@@ -68,6 +68,12 @@
     <string name="t_settings_hrm">Pulso dažnio matavimo parametrai:</string>
     <string name="chk_use_hrm">Naudoti pulso matuoklį</string>
     <string name="service_enable_bt">Bluetooth išjungtas, paleidžiama be ŠSD matavimo…</string>
-    <string name="action_follow_route_descr">Sekti marsruta</string>
+    <string name="action_follow_route_descr">Sekti maršrutą</string>
+    <string name="chk_duration">Laikas</string>
+    <string name="chk_distance">Atstumas</string>
+    <string name="chk_speed">Greitis</string>
+    <string name="chk_avspeed">Vidutinis greitis</string>
+    <string name="chk_pace">Tempas</string>
+    <string name="chk_avpace">Vidutinis tempas</string>
 
 </resources>
