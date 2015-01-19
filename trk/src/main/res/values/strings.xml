@@ -11,10 +11,10 @@
     <string name="gps">GPS</string>
     <string name="gps_status">GPS</string>
     <string name="duration">Duration:</string>
-    <string name="zduration">00:00:00</string>
+    <string name="zduration" translatable="false">00:00:00</string>
     <string name="distance">Distance:</string>
-    <string name="zdistance">0.00 km</string>
-    <string name="zspeed">0.00 km/h</string>
+    <string name="zdistance" translatable="false">0.00 km</string>
+    <string name="zspeed" translatable="false">0.00 km/h</string>
     <string name="b_stop">STOP</string>
     <string name="b_start">START</string>
     <string name="title_activity_settings">Settings</string>
@@ -24,7 +24,6 @@
     <string name="settings_showinfotonotif">Show track data in notification bar</string>
     <string name="t_interval_title">Location update interval:</string>
     <string name="t_speed_title">Minimum speed for track recording:</string>
-    <string name="zavspeed">0.00 km/h</string>
     <string name="avspeed">Avg. speed:</string>
     <string name="title_activity_record_list">Choose your GPX file:</string>
     <string name="action_RecordList">GPX Records</string>
@@ -45,7 +44,6 @@
     <string name="service_running">Tracking…</string>
     <string name="service_waitinggps">Waiting for GPS…</string>
     <string name="t_maxspeed">Max. speed:</string>
-    <string name="zmaxspeed">0.00 km/h</string>
     <string name="gpx_no_location" translatable="false">\?\?\?</string>
     <string name="action_resumeTracking">Resume tracking</string>
     <string name="intent_resumeFileOK">Resuming</string>
@@ -72,11 +70,12 @@
     <string name="chk_use_hrm">Use HR monitor</string>
     <string name="service_enable_bt">Bluetooth is disabled, starting without heart rate…</string>
     <string name="action_follow_route_descr">Follow route</string>
-    <string name="chk_duration">Laikas</string>
-    <string name="chk_distance">Atstumas</string>
-    <string name="chk_speed">Greitis</string>
-    <string name="chk_avspeed">Vidutinis greitis</string>
-    <string name="chk_pace">Tempas</string>
-    <string name="chk_avpace">Vidutinis tempas</string>
+    <string name="chk_duration">Time</string>
+    <string name="chk_distance">Distance</string>
+    <string name="chk_speed">Speed</string>
+    <string name="chk_avspeed">Average speed</string>
+    <string name="chk_pace">Pace</string>
+    <string name="chk_avpace">Average pace</string>
+    <string name="zpace" translatable="false">00:00 min./km</string>
 
 </resources>

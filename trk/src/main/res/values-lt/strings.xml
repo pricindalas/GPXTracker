@@ -7,10 +7,7 @@
     <string name="gps">GPS</string>
     <string name="gps_status">GPS</string>
     <string name="duration">Trukmė:</string>
-    <string name="zduration">00:00:00</string>
     <string name="distance">Atstumas:</string>
-    <string name="zdistance">0.00 km</string>
-    <string name="zspeed">0.00 km/h</string>
     <string name="b_stop">STABDYTI</string>
     <string name="b_start">PRADĖTI</string>
     <string name="title_activity_settings">Nustatymai</string>
@@ -18,7 +15,6 @@
     <string name="settings_showinfotonotif">Rodyti sekimo informaciją pranešimų juostoje</string>
     <string name="t_interval_title">Vietos atnaujinimo intervalas:</string>
     <string name="t_speed_title">Minimalus sekimo greitis:</string>
-    <string name="zavspeed">0.00 km/h</string>
     <string name="avspeed">Vid. greitis:</string>
     <string name="title_activity_record_list">Pasirinkite GPX failą:</string>
     <string name="action_RecordList">GPX Įrašai</string>
@@ -39,7 +35,6 @@
     <string name="service_running">Sekama…</string>
     <string name="service_waitinggps">Laukiama GPS…</string>
     <string name="t_maxspeed">Maks. gr.:</string>
-    <string name="zmaxspeed">0.00 km/h</string>
     <string name="no">Ne</string>
     <string name="yes">Taip</string>
     <string name="confirm_no">Ne, tai ne…</string>

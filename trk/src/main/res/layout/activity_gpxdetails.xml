@@ -82,7 +82,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/zavspeed"
+                android:text="@string/zspeed"
                 android:textSize="30dp" />
         </LinearLayout>
 
@@ -104,7 +104,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/zmaxspeed"
+                android:text="@string/zspeed"
                 android:textSize="30dp" />
         </LinearLayout>
 

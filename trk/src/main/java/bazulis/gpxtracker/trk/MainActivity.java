@@ -52,6 +52,9 @@ public class MainActivity extends Activity {
         durationFormat = new SimpleDateFormat("HH:mm:ss");
         durationFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
+        final SimpleDateFormat paceFormat = new SimpleDateFormat("mm:ss");
+        paceFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+
         t_distance = (TextView) findViewById(R.id.t_distance);
         t_duration = (TextView) findViewById(R.id.t_duration);
         t_speed = (TextView) findViewById(R.id.t_speed);
@@ -88,9 +91,11 @@ public class MainActivity extends Activity {
                 t_duration.setText(durationFormat.format(new Date(intent.getLongExtra("duration", 0))));
                 t_distance.setText(new DecimalFormat("#.## km").format(intent.getDoubleExtra("distance", 0)));
                 t_speed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("speed", 0)));
+
+
                 t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
-                t_pace.setText(new DecimalFormat("##.## min/km").format(intent.getDoubleExtra("pace", 0)));
-                t_avpace.setText(new DecimalFormat("##.## min/km").format(intent.getDoubleExtra("avpace", 0)));
+                t_pace.setText(paceFormat.format(new Date((long) (intent.getDoubleExtra("pace", 0) * 60000)))+" min./km");
+                t_avpace.setText(paceFormat.format(new Date((long) (intent.getDoubleExtra("avpace", 0) * 60000)))+" min./km");
                 if (isHrmEnabled) t_heartrate.setText(intent.getIntExtra("heartrate", 0)+getString(R.string.t_bpm));
                 switch (intent.getIntExtra("gps", 0)) {
                     case 0 : {

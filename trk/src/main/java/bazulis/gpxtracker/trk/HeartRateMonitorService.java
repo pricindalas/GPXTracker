@@ -126,6 +126,7 @@ public class HeartRateMonitorService extends Service {
                 format = BluetoothGattCharacteristic.FORMAT_UINT8;
             }
             int heartrate = characteristic.getIntValue(format, 1);
+
         }
     };
 }
