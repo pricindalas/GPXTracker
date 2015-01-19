@@ -31,6 +31,7 @@ class CounterThread extends Thread {
     private double maxheartrate;
     private double efficiency;
     private double uphill, downhill, maxheight, minheight;
+    private double pace, avpace;
     public CounterThread(GPXDetails activity, List<Float> lons, List<Float> lats, List<String> times, List<Float> eles, List<Integer> hearts) {
         this.activity = activity;
         this.lons = lons;
@@ -44,6 +45,8 @@ class CounterThread extends Thread {
         avspeed = 0;
         maxspeed = 0;
         avheartrate = 0;
+        pace = 0;
+        avpace = 0;
     }
     public CounterThread(List<Float> lons, List<Float> lats, List<String> times) {
         this.lons = lons;
@@ -119,11 +122,12 @@ class CounterThread extends Thread {
             efficiency = l1.distanceTo(l2) / distance;
         }
         avspeed = distance / (duration / 3600);
+        avpace = 60 / avspeed * 60000;
         if (activity!=null) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.updateData(distance, duration, avspeed, maxspeed, efficiency, uphill, downhill, maxheight, minheight, avheartrate, maxheartrate);
+                    activity.updateData(distance, duration, avspeed, maxspeed, efficiency, uphill, downhill, maxheight, minheight, avheartrate, maxheartrate, avpace);
                     activity.map.invalidate();
                 }
             });

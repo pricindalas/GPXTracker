@@ -207,8 +207,8 @@ public class TrackService extends Service {
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;
-        this.pace = 60 / speed;
-        this.avpace = 60 / avspeed;
+        this.pace = 60 / speed * 6000;
+        this.avpace = 60 / avspeed * 6000;
 
         if (updateNotif) {
             nbuilder.setContentText("T: " + duration + "; " + new DecimalFormat("##.# km").format(distance) + "; AVS" + new DecimalFormat("##.# km/h").format(avspeed));

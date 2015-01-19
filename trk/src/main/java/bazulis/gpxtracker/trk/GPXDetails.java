@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class GPXDetails extends Activity {
     private TextView t_uphill;
     private TextView t_downhill;
     private TextView t_maxheight, t_minheight, t_deltaheight;
+    private TextView t_avpace;
     public MapView map;
     private String filename;
     private boolean fileIsEmpty = false;
@@ -60,6 +62,7 @@ public class GPXDetails extends Activity {
         t_maxheight = (TextView) findViewById(R.id.t_maxheight);
         t_minheight = (TextView) findViewById(R.id.t_minheight);
         t_deltaheight = (TextView) findViewById(R.id.t_deltaheight);
+        t_avpace = (TextView) findViewById(R.id.t_avpace);
 
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -131,7 +134,7 @@ public class GPXDetails extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void updateData(double distance, long duration, double avspeed, double maxspeed, double efficiency, double uphill, double downhill, double maxheight, double minheight, double avheartrate, double maxheartrate) {
+    public void updateData(double distance, long duration, double avspeed, double maxspeed, double efficiency, double uphill, double downhill, double maxheight, double minheight, double avheartrate, double maxheartrate, double avpace) {
         t_distance.setText(new DecimalFormat("##.## km").format(distance/1000));
         t_duration.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(duration-getTZOffset())));
         t_avspeed.setText(new DecimalFormat("##.## km/h").format(avspeed));
@@ -144,6 +147,9 @@ public class GPXDetails extends Activity {
         t_maxheight.setText(new DecimalFormat("### m").format(maxheight));
         t_minheight.setText(new DecimalFormat("### m").format(minheight));
         t_deltaheight.setText(new DecimalFormat("### m").format(maxheight-minheight));
+        SimpleDateFormat paceFormat = new SimpleDateFormat("mm:ss");
+        paceFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        t_avpace.setText(paceFormat.format(new Date((long)avpace))+" min./km");
     }
     private long getTZOffset() {
         TimeZone tz = TimeZone.getDefault();

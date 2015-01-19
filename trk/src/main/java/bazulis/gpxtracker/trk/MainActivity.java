@@ -94,8 +94,10 @@ public class MainActivity extends Activity {
 
 
                 t_avspeed.setText(new DecimalFormat("##.## km/h").format(intent.getDoubleExtra("avspeed", 0)));
-                t_pace.setText(paceFormat.format(new Date((long) (intent.getDoubleExtra("pace", 0) * 60000)))+" min./km");
-                t_avpace.setText(paceFormat.format(new Date((long) (intent.getDoubleExtra("avpace", 0) * 60000)))+" min./km");
+                double pace = intent.getDoubleExtra("pace", 0);
+                double avpace = intent.getDoubleExtra("avpace", 0);
+                t_pace.setText(paceFormat.format(new Date((long) pace))+" min./km");
+                t_avpace.setText(paceFormat.format(new Date((long) avpace))+" min./km");
                 if (isHrmEnabled) t_heartrate.setText(intent.getIntExtra("heartrate", 0)+getString(R.string.t_bpm));
                 switch (intent.getIntExtra("gps", 0)) {
                     case 0 : {
