@@ -44,6 +44,9 @@ public class TrackService extends Service {
     private double avpace;
     private long duration;
     private int heartrate;
+    private double avheartrateSum;
+    private double avheartrate;
+    private double avheartrateCount;
     private boolean updateNotif;
     public boolean isHrmEnabled;
     ///
@@ -99,6 +102,9 @@ public class TrackService extends Service {
                             //System.out.println("UINT8 formatas");
                         }
                         heartrate = characteristic.getIntValue(format, 1);
+                        avheartrateSum += heartrate;
+                        avheartrateCount++;
+                        avheartrate = avheartrateSum / avheartrateCount;
                     }
                 };
                 BluetoothDevice targetDevice = mBluetoothAdapter.getRemoteDevice(getHRmonitorMAC());
@@ -140,6 +146,9 @@ public class TrackService extends Service {
         speed = 0;
         avspeed = 0;
         duration = 0;
+        avheartrateCount = 0;
+        avheartrate = 0;
+        avheartrateSum = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -164,6 +173,7 @@ public class TrackService extends Service {
                     broadcast.putExtra("avpace", avpace);
                     broadcast.putExtra("gps", gpsStatus);
                     broadcast.putExtra("heartrate", heartrate);
+                    broadcast.putExtra("avheartrate", avheartrate);
                     sendBroadcast(broadcast);
                 }
             }

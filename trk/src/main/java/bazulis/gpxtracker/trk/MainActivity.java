@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
     private boolean isHrmEnabled;
     private SimpleDateFormat durationFormat;
 
-    private TextView t_distance, t_duration, t_speed, t_avspeed, t_pace, t_avpace, t_gps_status, t_heartrate;
+    private TextView t_distance, t_duration, t_speed, t_avspeed, t_pace, t_avpace, t_gps_status, t_heartrate, t_avheartrate;
     private ImageView ic_gps_status;
     private Button b_start, b_stop;
 
@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
         t_avpace = (TextView) findViewById(R.id.t_avpace);
         t_gps_status = (TextView) findViewById(R.id.t_gps_status);
         t_heartrate = (TextView) findViewById(R.id.t_heartrate);
+        t_avheartrate = (TextView) findViewById(R.id.t_avheartrate);
         ic_gps_status = (ImageView) findViewById(R.id.ic_gps_status);
 
         SharedPreferences preferences = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0);
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
         if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVSPEED_ENABLED, true)) t_avspeed.setVisibility(View.GONE);
         if (!preferences.getBoolean(SettingsActivity.SETTINGS_PACE_ENABLED, true)) t_pace.setVisibility(View.GONE);
         if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVPACE_ENABLED, true)) t_avpace.setVisibility(View.GONE);
+        if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVHEARTRATE_ENABLED, false)) t_avheartrate.setVisibility(View.GONE);
 
 
         b_start = (Button) findViewById(R.id.b_start);
@@ -98,7 +100,10 @@ public class MainActivity extends Activity {
                 double avpace = intent.getDoubleExtra("avpace", 0);
                 t_pace.setText(paceFormat.format(new Date((long) pace))+" min./km");
                 t_avpace.setText(paceFormat.format(new Date((long) avpace))+" min./km");
-                if (isHrmEnabled) t_heartrate.setText(intent.getIntExtra("heartrate", 0)+getString(R.string.t_bpm));
+                if (isHrmEnabled) {
+                    t_heartrate.setText(intent.getIntExtra("heartrate", 0)+getString(R.string.t_bpm));
+                    t_avheartrate.setText((int) intent.getDoubleExtra("avheartrate", 0)+getString(R.string.t_bpm));
+                }
                 switch (intent.getIntExtra("gps", 0)) {
                     case 0 : {
                         t_gps_status.setText(getString(R.string.gps_isdisabled));

@@ -171,6 +171,13 @@
             android:textSize="20sp"
             android:id="@+id/chk_avpace" />
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chk_avheartrate"
+            android:textSize="20sp"
+            android:id="@+id/chk_avheartrate" />
+
         <TextView
             android:paddingTop="20dp"
             android:id="@+id/credits"

@@ -157,9 +157,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="30dp"
-                android:text="@string/chk_avpace"/>
+                android:text="@string/t_avpace"/>
             <TextView
                 android:id="@+id/t_avpace"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                android:text="@string/zpace"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                android:text="@string/t_maxpace"/>
+            <TextView
+                android:id="@+id/t_maxpace"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

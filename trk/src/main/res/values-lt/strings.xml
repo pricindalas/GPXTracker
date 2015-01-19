@@ -70,5 +70,8 @@
     <string name="chk_avspeed">Vidutinis greitis</string>
     <string name="chk_pace">Tempas</string>
     <string name="chk_avpace">Vidutinis tempas</string>
+    <string name="t_avpace">Vid. tempas:</string>
+    <string name="t_maxpace">Maks. temp.:</string>
+    <string name="chk_avheartrate">Vidutinis ŠSD</string>
 
 </resources>

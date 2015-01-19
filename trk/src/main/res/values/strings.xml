@@ -77,5 +77,8 @@
     <string name="chk_pace">Pace</string>
     <string name="chk_avpace">Average pace</string>
     <string name="zpace" translatable="false">00:00 min./km</string>
+    <string name="t_avpace">Avg. pace:</string>
+    <string name="t_maxpace">Max. pace.:</string>
+    <string name="chk_avheartrate">Average heartrate</string>
 
 </resources>

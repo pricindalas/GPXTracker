@@ -92,6 +92,15 @@
                 android:drawableStart="@drawable/ic_heart_rate"
                 android:drawablePadding="16dp"/>
 
+            <TextView
+                android:id="@+id/t_avheartrate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zbpm"
+                android:textSize="40sp"
+                android:drawableStart="@drawable/ic_heart_rate"
+                android:drawablePadding="16dp"/>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

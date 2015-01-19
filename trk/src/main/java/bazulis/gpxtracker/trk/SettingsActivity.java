@@ -25,6 +25,7 @@ public class SettingsActivity extends Activity {
     public static final String SETTINGS_AVSPEED_ENABLED = "avspeed_enabled";
     public static final String SETTINGS_PACE_ENABLED = "pace_enabled";
     public static final String SETTINGS_AVPACE_ENABLED = "avpace_enabled";
+    public static final String SETTINGS_AVHEARTRATE_ENABLED = "avheartrate_enabled";
 
     private static int REFRESH_INTERVAL;
     private static int MINIMUM_SPEED;
@@ -36,6 +37,7 @@ public class SettingsActivity extends Activity {
     private static boolean ENABLE_AVSPEED;
     private static boolean ENABLE_PACE;
     private static boolean ENABLE_AVPACE;
+    private static boolean ENABLE_AVHEARTRATE;
 
     private String HRM_NAME, HRM_MAC;
 
@@ -56,6 +58,7 @@ public class SettingsActivity extends Activity {
         CheckBox avspeedCheck = (CheckBox) findViewById(R.id.chk_avspeed);
         CheckBox paceCheck = (CheckBox) findViewById(R.id.chk_pace);
         CheckBox avpaceCheck = (CheckBox) findViewById(R.id.chk_avpace);
+        CheckBox avheartrateCheck = (CheckBox) findViewById(R.id.chk_avheartrate);
         SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
         REFRESH_INTERVAL = settings.getInt(SETTINGS_REFRESH_INTERVAL, 2);
         MINIMUM_SPEED = settings.getInt(SETTINGS_MINIMUM_SPEED, 2);
@@ -67,6 +70,7 @@ public class SettingsActivity extends Activity {
         ENABLE_AVSPEED = settings.getBoolean(SETTINGS_AVSPEED_ENABLED, true);
         ENABLE_PACE = settings.getBoolean(SETTINGS_PACE_ENABLED, true);
         ENABLE_AVPACE = settings.getBoolean(SETTINGS_AVPACE_ENABLED, true);
+        ENABLE_AVHEARTRATE = settings.getBoolean(SETTINGS_AVHEARTRATE_ENABLED, false);
         interval.setText(REFRESH_INTERVAL+" s");
         speed.setText(MINIMUM_SPEED+" km/h");
         update_status_bar.setChecked(UPDATE_NOTIFICATION_BAR);
@@ -126,6 +130,13 @@ public class SettingsActivity extends Activity {
                 ENABLE_AVPACE = isChecked;
             }
         });
+        avheartrateCheck.setChecked(ENABLE_AVHEARTRATE);
+        avheartrateCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ENABLE_AVHEARTRATE = isChecked;
+            }
+        });
         hrmConfigButton = (Button) findViewById(R.id.b_hrm_config);
         hrmConfigButton.setEnabled(ENABLE_HR_MONITOR);
         hrmConfigButton.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +172,7 @@ public class SettingsActivity extends Activity {
         editor.putBoolean(SETTINGS_AVSPEED_ENABLED, ENABLE_AVSPEED);
         editor.putBoolean(SETTINGS_PACE_ENABLED, ENABLE_PACE);
         editor.putBoolean(SETTINGS_AVPACE_ENABLED, ENABLE_AVPACE);
+        editor.putBoolean(SETTINGS_AVHEARTRATE_ENABLED, ENABLE_AVHEARTRATE);
         if (HRM_NAME!=null && HRM_MAC!=null) {
             editor.putString(SETTINGS_HRMONITOR_NAME, HRM_NAME);
             editor.putString(SETTINGS_HRMONITOR_MAC, HRM_MAC);
