@@ -6,8 +6,8 @@ android {
         minSdkVersion 18
         applicationId "bazulis.gpxtracker.trk"
         targetSdkVersion 21
-        versionCode 50
-        versionName '1.8.5'
+        versionCode 51
+        versionName '1.8.6'
     }
     buildTypes {
         release {

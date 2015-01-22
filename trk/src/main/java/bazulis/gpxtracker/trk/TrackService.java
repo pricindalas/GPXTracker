@@ -149,6 +149,8 @@ public class TrackService extends Service {
         avheartrateCount = 0;
         avheartrate = 0;
         avheartrateSum = 0;
+        pace = 0;
+        avpace = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         IntentFilter filter = new IntentFilter();
@@ -217,8 +219,8 @@ public class TrackService extends Service {
         this.distance = distance;
         this.speed = speed;
         this.avspeed = avspeed;
-        this.pace = 60 / speed * 6000;
-        this.avpace = 60 / avspeed * 6000;
+        this.pace = 60 / speed * 60000;
+        this.avpace = 60 / avspeed * 60000;
 
         if (updateNotif) {
             nbuilder.setContentText("T: " + duration + "; " + new DecimalFormat("##.# km").format(distance) + "; AVS" + new DecimalFormat("##.# km/h").format(avspeed));
