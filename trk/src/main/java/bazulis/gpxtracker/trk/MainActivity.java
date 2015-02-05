@@ -73,7 +73,6 @@ public class MainActivity extends Activity {
         if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVSPEED_ENABLED, true)) t_avspeed.setVisibility(View.GONE);
         if (!preferences.getBoolean(SettingsActivity.SETTINGS_PACE_ENABLED, true)) t_pace.setVisibility(View.GONE);
         if (!preferences.getBoolean(SettingsActivity.SETTINGS_AVPACE_ENABLED, true)) t_avpace.setVisibility(View.GONE);
-        if (!(preferences.getBoolean(SettingsActivity.SETTINGS_AVHEARTRATE_ENABLED, false) && isHrmEnabled)) t_avheartrate.setVisibility(View.GONE);
 
 
         b_start = (Button) findViewById(R.id.b_start);
@@ -164,7 +163,11 @@ public class MainActivity extends Activity {
         isHrmEnabled = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_ENABLE_HR_MONITOR, false);
         if (!isHrmEnabled) {
             t_heartrate.setVisibility(View.GONE);
+            t_avheartrate.setVisibility(View.GONE);
         } else {
+            if (getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0).getBoolean(SettingsActivity.SETTINGS_AVHEARTRATE_ENABLED, false))
+                t_avheartrate.setVisibility(View.VISIBLE);
+            else t_avheartrate.setVisibility(View.GONE);
             t_heartrate.setVisibility(View.VISIBLE);
         }
         super.onStart();

@@ -77,11 +77,13 @@ class CounterThread extends Thread {
         ///AVG SSD///
         long sum = 0;
         maxheartrate = 0;
-        for (int hr : hearts) {
-            sum += hr;
-            if (hr>maxheartrate) maxheartrate = hr;
+        if (hearts != null) {
+            for (int hr : hearts) {
+                sum += hr;
+                if (hr>maxheartrate) maxheartrate = hr;
+            }
+            if (hearts.size()>0) avheartrate = sum / hearts.size();
         }
-        if (hearts.size()>0) avheartrate = sum / hearts.size();
         /////////////
         for(int i = 0; i < lons.size()-1; i++) {
             try {
