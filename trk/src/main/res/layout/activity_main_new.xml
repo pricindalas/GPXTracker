@@ -1,0 +1,320 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    style="@style/scheme1"
+    android:measureAllChildren="false">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ic_gps_status"
+                    android:src="@drawable/ic_gps_idle"
+                    android:contentDescription="@string/gps"/>
+                <TextView
+                    android:id="@+id/t_gps_status"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/gps_status"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="20dp"
+                    android:gravity="center_vertical" />
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingBottom="10dp"
+                android:gravity="center_horizontal">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/indicator_framewidth"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bcg_frame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="SPEED"
+                        android:id="@+id/textView3"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/textView4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_distance"
+                        android:text="00.00"
+                        android:id="@+id/textView2"
+                        android:textSize="@dimen/indicator_textsize"
+                        android:layout_below="@+id/textView3"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="KM/H"
+                        android:id="@+id/textView4"
+                        android:padding="2dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="fill_parent" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/indicator_framewidth"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bcg_frame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="DISTANCE"
+                        android:id="@+id/textView5"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/textView7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_distance"
+                        android:text="0.00"
+                        android:id="@+id/textView6"
+                        android:textSize="@dimen/indicator_textsize"
+                        android:layout_below="@+id/textView5"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="false"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="KM"
+                        android:id="@+id/textView7"
+                        android:padding="2dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingBottom="10dp"
+                android:gravity="center_horizontal" >
+
+                <RelativeLayout
+                    android:layout_width="@dimen/indicator_framewidth"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bcg_frame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="TIME"
+                        android:id="@+id/textView8"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_distance"
+                        android:text="00:00:00"
+                        android:id="@+id/textView9"
+                        android:textSize="@dimen/indicator_textsize"
+                        android:layout_below="@+id/textView8"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="false" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="fill_parent" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/indicator_framewidth"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bcg_frame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="PACE"
+                        android:id="@+id/textView11"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_distance"
+                        android:text="00:00"
+                        android:id="@+id/textView12"
+                        android:textSize="@dimen/indicator_textsize"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="false"
+                        android:layout_below="@+id/textView11" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="MIN/KM"
+                        android:id="@+id/textView13"
+                        android:padding="2dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toEndOf="@+id/textView12" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingBottom="10dp"
+                android:gravity="center_horizontal" >
+
+                <RelativeLayout
+                    android:layout_width="@dimen/indicator_framewidth"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bcg_frame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="DISTANCE"
+                        android:id="@+id/textView14"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/textView16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_distance"
+                        android:text="000.00"
+                        android:id="@+id/textView15"
+                        android:textSize="28sp"
+                        android:layout_below="@+id/textView14"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="KM/H"
+                        android:id="@+id/textView16"
+                        android:padding="2dp"
+                        android:layout_alignTop="@+id/textView15"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="fill_parent" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/indicator_framewidth"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bcg_frame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="DISTANCE"
+                        android:id="@+id/textView17"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/textView19" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_distance"
+                        android:text="000.00"
+                        android:id="@+id/textView18"
+                        android:textSize="28sp"
+                        android:layout_below="@+id/textView17"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="KM/H"
+                        android:id="@+id/textView19"
+                        android:padding="2dp"
+                        android:layout_alignBottom="@+id/textView18"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/b_start"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="begin"
+                    android:text="@string/b_start"
+                    android:textSize="20sp"
+                    android:background="@drawable/bcg_frame" />
+
+                <Button
+                    android:id="@+id/b_stop"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="end"
+                    android:text="@string/b_stop"
+                    android:textSize="20sp"
+                    android:background="@drawable/bcg_frame" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="50px" />
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigation_container"/>
+
+
+        </LinearLayout>
+</ScrollView>
