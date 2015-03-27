@@ -80,5 +80,6 @@
     <string name="t_avpace">Avg. pace:</string>
     <string name="t_maxpace">Max. pace.:</string>
     <string name="chk_avheartrate">Average heartrate</string>
+    <string name="hud_display_elements">HUD elements to display:</string>
 
 </resources>

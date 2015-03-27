@@ -1,5 +1,6 @@
 package bazulis.gpxtracker.trk;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,6 +19,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -63,11 +65,12 @@ public class TrackService extends Service {
     public TrackService() {
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         makeForeground();
-
-        if (isHrmEnabled && !getHRmonitorMAC().equals("none")) {
+        boolean apiLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
+        if (apiLevel && isHrmEnabled && !getHRmonitorMAC().equals("none")) {
             BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter mBluetoothAdapter = manager.getAdapter();
             if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
@@ -188,6 +191,7 @@ public class TrackService extends Service {
         return heartrate;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onDestroy() {
         locationManager.removeUpdates(locationListener);

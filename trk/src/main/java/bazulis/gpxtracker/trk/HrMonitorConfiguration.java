@@ -1,5 +1,6 @@
 package bazulis.gpxtracker.trk;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class HrMonitorConfiguration extends Activity {
 
     private BluetoothAdapter btadapter;
@@ -153,7 +154,7 @@ public class HrMonitorConfiguration extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.hrm_list, parent, false);
+            if (convertView == null) convertView = getLayoutInflater().inflate(R.layout.hrm_list, parent, false);
             TextView name = (TextView) convertView.findViewById(R.id.t_hrm_name);
             TextView address = (TextView) convertView.findViewById(R.id.t_hrm_mac);
             name.setText(devices.get(position).getName());

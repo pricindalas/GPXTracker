@@ -3,6 +3,7 @@ package bazulis.gpxtracker.trk;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -80,14 +81,6 @@ public class SettingsActivity extends Activity {
                 UPDATE_NOTIFICATION_BAR = isChecked;
             }
         });
-        chk_enable_hrm.setChecked(ENABLE_HR_MONITOR);
-        chk_enable_hrm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ENABLE_HR_MONITOR = isChecked;
-                hrmConfigButton.setEnabled(isChecked);
-            }
-        });
         durationCheck.setChecked(ENABLE_DURATION);
         durationCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -130,22 +123,43 @@ public class SettingsActivity extends Activity {
                 ENABLE_AVPACE = isChecked;
             }
         });
-        avheartrateCheck.setChecked(ENABLE_AVHEARTRATE);
-        avheartrateCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ENABLE_AVHEARTRATE = isChecked;
-            }
-        });
+
         hrmConfigButton = (Button) findViewById(R.id.b_hrm_config);
-        hrmConfigButton.setEnabled(ENABLE_HR_MONITOR);
-        hrmConfigButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HrMonitorConfiguration.class);
-                startActivityForResult(intent, 0);
-            }
-        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            hrmConfigButton.setEnabled(ENABLE_HR_MONITOR);
+            hrmConfigButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), HrMonitorConfiguration.class);
+                    startActivityForResult(intent, 0);
+                }
+            });
+            chk_enable_hrm.setChecked(ENABLE_HR_MONITOR);
+            chk_enable_hrm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    ENABLE_HR_MONITOR = isChecked;
+                    hrmConfigButton.setEnabled(isChecked);
+                }
+            });
+
+            avheartrateCheck.setChecked(ENABLE_AVHEARTRATE);
+            avheartrateCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    ENABLE_AVHEARTRATE = isChecked;
+                }
+            });
+
+        } else {
+
+            hrmConfigButton.setEnabled(false);
+            chk_enable_hrm.setEnabled(false);
+            avheartrateCheck.setEnabled(false);
+
+        }
+
     }
 
     @Override

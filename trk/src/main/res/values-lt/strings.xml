@@ -73,5 +73,6 @@
     <string name="t_avpace">Vid. tempas:</string>
     <string name="t_maxpace">Maks. temp.:</string>
     <string name="chk_avheartrate">Vidutinis ŠSD</string>
+    <string name="hud_display_elements">Rodomi duomenys:</string>
 
 </resources>
