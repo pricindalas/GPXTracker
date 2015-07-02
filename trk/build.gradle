@@ -7,7 +7,7 @@ android {
         applicationId "bazulis.gpxtracker.trk"
         targetSdkVersion 22
         versionCode 55
-        versionName '1.9.0'
+        versionName '1.9.1'
     }
     buildTypes {
         release {

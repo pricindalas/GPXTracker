@@ -2,7 +2,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     style="@style/scheme1"
-    android:measureAllChildren="false">
+    android:measureAllChildren="false"
+    android:keepScreenOn="true">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -23,9 +24,9 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:text="@string/gps_status"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:textSize="20dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:textSize="20sp"
                     android:gravity="center_vertical" />
                 </LinearLayout>
 
@@ -36,6 +37,7 @@
                 android:text="@string/zduration"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_duration"
+                android:drawableLeft="@drawable/ic_duration"
                 android:drawablePadding="16dp"/>
 
             <TextView
@@ -45,6 +47,7 @@
                 android:text="@string/zdistance"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_distance"
+                android:drawableLeft="@drawable/ic_distance"
                 android:drawablePadding="16dp"/>
 
             <TextView
@@ -54,6 +57,7 @@
                 android:text="@string/zspeed"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_speed"
+                android:drawableLeft="@drawable/ic_speed"
                 android:drawablePadding="16dp"/>
 
             <TextView
@@ -63,6 +67,7 @@
                 android:text="@string/zspeed"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_avspeed"
+                android:drawableLeft="@drawable/ic_avspeed"
                 android:drawablePadding="16dp" />
 
             <TextView
@@ -72,6 +77,7 @@
                 android:text="@string/zpace"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_speed"
+                android:drawableLeft="@drawable/ic_speed"
                 android:drawablePadding="16dp" />
 
             <TextView
@@ -81,6 +87,7 @@
                 android:text="@string/zpace"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_avspeed"
+                android:drawableLeft="@drawable/ic_avspeed"
                 android:drawablePadding="16dp" />
 
             <TextView
@@ -90,6 +97,7 @@
                 android:text="@string/zbpm"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_heart_rate"
+                android:drawableLeft="@drawable/ic_heart_rate"
                 android:drawablePadding="16dp"/>
 
             <TextView
@@ -99,6 +107,7 @@
                 android:text="@string/zbpm"
                 android:textSize="40sp"
                 android:drawableStart="@drawable/ic_heart_rate"
+                android:drawableLeft="@drawable/ic_heart_rate"
                 android:drawablePadding="16dp"/>
 
             <LinearLayout

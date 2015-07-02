@@ -25,13 +25,9 @@ import java.util.List;
 public class HrMonitorConfiguration extends Activity {
 
     private BluetoothAdapter btadapter;
-
     private mLeScanCallback leScanCallback;
-
     private DeviceListAdapter dlAdapter;
-
     private TextView hrmName, hrmAddress;
-
     private String HRM_NAME, HRM_MAC;
 
     @Override
@@ -135,6 +131,7 @@ public class HrMonitorConfiguration extends Activity {
 
         public void addDevice(BluetoothDevice device) {
             devices.add(device);
+            notifyDataSetChanged();
         }
 
         @Override
@@ -175,7 +172,6 @@ public class HrMonitorConfiguration extends Activity {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
             dlAdapter.addDevice(device);
-            dlAdapter.notifyDataSetChanged();
         }
     }
 }

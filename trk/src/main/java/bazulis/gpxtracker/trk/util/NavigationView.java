@@ -17,6 +17,7 @@ import java.util.List;
 public class NavigationView extends View {
     private List<Location> points;
     public static Location currentLocation;
+    private static final float SCALE = 0.5f;
     final double lonRadius = 6378.16;
     final double latRadius = 6357.715;
     final double lonAngle = 360 / ( 2 * Math.PI * lonRadius );
@@ -33,6 +34,9 @@ public class NavigationView extends View {
 
     public void setup(List<Location> points) {
         this.points = points;
+        currentLocation = new Location("");
+        currentLocation.setLongitude(this.points.get(0).getLongitude());
+        currentLocation.setLatitude(this.points.get(0).getLatitude());
         this.invalidate();
     }
 
@@ -42,11 +46,11 @@ public class NavigationView extends View {
     }
 
     private float getlonX(int i, int width) {
-        double r = width / 2 + ( points.get(i).getLongitude() - currentLocation.getLongitude() ) * width / lonAngle * Math.cos(Math.toRadians(points.get(i).getLatitude()));
+        double r = width / 2 + SCALE * (points.get(i).getLongitude() - currentLocation.getLongitude()) * width / lonAngle * Math.cos(Math.toRadians(points.get(i).getLatitude()));
         return (float) r;
     }
     private float getlatY(int i, int height) {
-        double r = height / 2 + ( currentLocation.getLatitude() - points.get(i).getLatitude() ) * height / latAngle;
+        double r = height / 2 + SCALE * (currentLocation.getLatitude() - points.get(i).getLatitude()) * height / latAngle;
         return (float) r;
     }
 
@@ -55,7 +59,7 @@ public class NavigationView extends View {
         if (!points.isEmpty() && currentLocation != null) {
             objectPaint.setColor(Color.rgb(255, 255, 128));
             for (int i = 0; i < points.size() - 1; i++) {
-                if (points.get(i).distanceTo(currentLocation) < 750) {
+                if (points.get(i).distanceTo(currentLocation) < 1500) {
                     canvas.drawLine(getlonX(i, canvas.getWidth()), getlatY(i, canvas.getHeight()), getlonX(i + 1, canvas.getWidth()), getlatY(i + 1, canvas.getHeight()), linePaint);
                 }
             }
